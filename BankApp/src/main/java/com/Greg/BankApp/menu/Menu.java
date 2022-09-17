@@ -1,4 +1,5 @@
 package com.Greg.BankApp.menu;
+import com.Greg.BankApp.Repositories.AccountRepository;
 import com.Greg.BankApp.Services.AccountService;
 import com.Greg.BankApp.Services.CustomerService;
 import com.Greg.BankApp.Services.EmployeeService;
@@ -16,7 +17,6 @@ import java.util.Set;
 
 @Component
 public class Menu {
-
     @Autowired
     AccountService accService;
     @Autowired
@@ -90,10 +90,6 @@ public class Menu {
             }
 
 
-
-
-
-
         }
     }
 
@@ -115,6 +111,13 @@ public class Menu {
                     break;
                 case 2:
                     //todo apply for new account
+
+                    Account account = accService.createNewAccount();
+                    customer.addAccountToTheList(account);
+                    cusService.saveCustomer(customer);
+
+                    //2) dodanie powstalego konta do Set<Account> accountList przez metode addAccountToTheList z customer
+                    //3) zapisanie zupdatowanego customera do bazy
                     break;
                 case 3:
                     changePersonalDetails(customer);
@@ -132,28 +135,41 @@ public class Menu {
         System.out.println("You have following bank accounts");
         System.out.println("Select which one You would like to use");
         System.out.println("------------------------------------------------------------------------------------------");
-        Set<Account> bankAccountList =  customer.getAccountList();
-        List<Account> listBankAccountList = bankAccountList.stream().toList();
 
-        for(int i = 0; i < listBankAccountList.size(); i++){
-            System.out.println((i+1)+") Account number: "+listBankAccountList.get(i).getAccount_number()
-            +" current balance: "+listBankAccountList.get(i).getAccount_balance());
+        String idNumber = customer.getIdnumber();
+        List<Account> customerApprovedBankAccounts = accService.readAllAcceptedAccountsByOwnerId(idNumber);
+
+        for(int i = 0; i<customerApprovedBankAccounts.size(); i++){
+            System.out.println((i+1)+") Account number: "+customerApprovedBankAccounts.get(i).getAccount_number()
+            +" current balance: "+customerApprovedBankAccounts.get(i).getAccount_balance());
+
         }
+
         System.out.println("0) Back to main menu");
         int option = sc.nextInt();
 
             switch (option){
                 case 1:
-                    int accountNumber = listBankAccountList.get(0).getAccount_number();
+                    int accountNumber = customerApprovedBankAccounts.get(0).getAccount_number();
                     accountView(accountNumber,customer);
                     break;
                 case 2:
-                    accountNumber = listBankAccountList.get(1).getAccount_number();
+                    accountNumber = customerApprovedBankAccounts.get(1).getAccount_number();
+                    accountView(accountNumber, customer);
+                    break;
+                case 3:
+                    accountNumber = customerApprovedBankAccounts.get(2).getAccount_number();
                     accountView(accountNumber, customer);
                     break;
                 case 0:
                     customerAccountView(customer);
                     break;
+
+                default:{
+                    System.out.println("Select option from 1 to "+(customerApprovedBankAccounts.size()-1)+" or 0 " +
+                            "to go back to previous menu");
+                    customerBankAccountListView(customer);
+                }
 
             }
     }
@@ -168,7 +184,7 @@ public class Menu {
         System.out.println("1) deposit");
         System.out.println("2) withdraw");
         System.out.println("3) transfer");
-        System.out.println("4) back to previous menu");
+        System.out.println("0) back to previous menu");
         int option = sc.nextInt();
 
         switch (option){
@@ -249,7 +265,8 @@ public class Menu {
         System.out.println("2) View individual customer detail");
         System.out.println("3) View  all bank accounts details");
         System.out.println("4) View individual customer detail");
-        System.out.println("5) back to main menu");
+        System.out.println("5) Approve account");
+        System.out.println("6) back to main menu");
         System.out.println("0) exit");
         int option;
         option = sc.nextInt();
@@ -277,8 +294,15 @@ public class Menu {
                 employeeMenu(employee);
                 break;
             case 5:
+                System.out.println("Enter bank account");
+                int accauntNumber = sc.nextInt();
+                employeeService.approveCustomerBankAccount(accauntNumber);
+                employeeMenu(employee);
+                break;
+            case 6:
                 mainMenu();
                 break;
+
             case 0:
                 System.exit(0);
                 break;
@@ -297,7 +321,8 @@ public class Menu {
         System.out.println("2) View individual customer detail");
         System.out.println("3) View  all bank accounts details");
         System.out.println("4) View individual customer detail");
-        System.out.println("5) back to main menu");
+        System.out.println("5) Approve account");
+        System.out.println("6) back to main menu");
         System.out.println("0) exit");
         int option;
         option = sc.nextInt();
@@ -324,13 +349,19 @@ public class Menu {
                 adminMenu(admin);
                 break;
             case 5:
+                System.out.println("Enter bank account");
+                int accauntNumber = sc.nextInt();
+                employeeService.approveCustomerBankAccount(accauntNumber);
+                adminMenu(admin);
+                break;
+            case 6:
                 mainMenu();
                 break;
-            case 0:
+                case 0:
                 System.exit(0);
                 break;
             default: {
-                System.out.println("Select option from 1 to 5 or 0 for exit");
+                System.out.println("Select option from 1 to 6 or 0 for exit");
                 adminMenu(admin);
             }
         }

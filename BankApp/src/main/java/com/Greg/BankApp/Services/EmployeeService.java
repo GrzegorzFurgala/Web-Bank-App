@@ -99,4 +99,13 @@ public class EmployeeService {
         BankAdmin admin = employeeRepository.logInAdmin(login,password);
         return admin;
     }
+
+    public void approveCustomerBankAccount(int accountNumber){
+        employeeRepository.approveCustomerAccount(accountNumber);
+    }
+    public void disapproveCustomerBankAccount(int accountNumber){
+        employeeRepository.disapproveCustomerAccount(accountNumber);
+    }
+
+
 }

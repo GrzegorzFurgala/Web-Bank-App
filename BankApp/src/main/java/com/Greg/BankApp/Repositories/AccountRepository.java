@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Repository
@@ -32,6 +33,14 @@ public class AccountRepository {
         allAccounts.forEach(System.out::println);
         return allAccounts;
     }
+
+    public List<Account> readAllAcceptedAccountsByOwnerId(String ownerId){
+        TypedQuery<Account> allAccounts = em.createQuery("Select a from Account a where a.owner_id=:owner and account_approved = true",Account.class);
+        allAccounts.setParameter("owner",ownerId);
+        List<Account> customerApprovedBankAccounts = allAccounts.getResultList();
+        return customerApprovedBankAccounts;
+    }
+
 
     public Account findAccountByAccNumber(int account_number){
         return em.find(Account.class, account_number);

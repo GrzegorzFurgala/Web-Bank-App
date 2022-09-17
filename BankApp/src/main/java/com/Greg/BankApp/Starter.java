@@ -1,8 +1,10 @@
 package com.Greg.BankApp;
+import com.Greg.BankApp.Repositories.AccountRepository;
 import com.Greg.BankApp.Repositories.EmployeeRepository;
 import com.Greg.BankApp.Services.AccountService;
 import com.Greg.BankApp.Services.CustomerService;
 import com.Greg.BankApp.Services.EmployeeService;
+import com.Greg.BankApp.domain.Account;
 import com.Greg.BankApp.menu.Menu;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -16,6 +18,8 @@ public class Starter implements CommandLineRunner {
     CustomerService service;
     @Autowired
     AccountService accountService;
+    @Autowired
+    AccountRepository accRepo;
     @Autowired
     Menu menu;
     @Autowired
@@ -36,17 +40,11 @@ public class Starter implements CommandLineRunner {
 
 
 
+        //System.out.println(accRepo.readAllAcceptedAccountsByOwnerId("GR123"));
+
         menu.mainMenu();
 
-
-
-
-
-
-
-
-
-
+        //employeeService.approveCustomerBankAccount(56);
 
 
     }

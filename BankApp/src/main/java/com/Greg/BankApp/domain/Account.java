@@ -10,6 +10,8 @@ public class Account {
     private String account_holder_first_name;
     private String account_holder_last_name;
     private double account_balance;
+    boolean account_approved;
+    String owner_id;
 
 
 
@@ -19,9 +21,17 @@ public class Account {
     public Account(String account_holder_first_name, String account_holder_last_name) {
         this.account_holder_first_name = account_holder_first_name;
         this.account_holder_last_name = account_holder_last_name;
+        this.account_approved = false;
         this.account_balance = 1000;
     }
 
+    public boolean isAccount_approved() {
+        return account_approved;
+    }
+
+    public void setAccount_approved(boolean account_approved) {
+        this.account_approved = account_approved;
+    }
 
     public int getAccount_number() {
         return account_number;

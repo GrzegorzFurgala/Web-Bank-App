@@ -5,15 +5,12 @@ import com.Greg.BankApp.domain.BankAdmin;
 import com.Greg.BankApp.domain.BankEmployee;
 import com.Greg.BankApp.domain.Customer;
 import org.springframework.stereotype.Repository;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.NoResultException;
-import javax.persistence.Persistence;
-import javax.persistence.TypedQuery;
+
+import javax.persistence.*;
 import java.util.List;
 
 @Repository
 public class EmployeeRepository {
-
     EntityManagerFactory factory = Persistence.createEntityManagerFactory("GregPostgres");
     javax.persistence.EntityManager em = factory.createEntityManager();
 
@@ -84,6 +81,27 @@ public class EmployeeRepository {
         Account account = em.find(Account.class, accountNumber);
         return account;
     }
+    public Account updateAccount(Account account){
+        Account acc = em.merge(account);
+        return acc;
+    }
+
+    public void approveCustomerAccount(int accountNumber){
+        Account account = readAccountByAccountNumber(accountNumber);
+        account.setAccount_approved(true);
+        em.getTransaction().begin();
+        updateAccount(account);
+        em.getTransaction().commit();
+    }
+
+    public void disapproveCustomerAccount(int accountNumber){
+        Account account = readAccountByAccountNumber(accountNumber);
+        account.setAccount_approved(false);
+        em.getTransaction().begin();
+        updateAccount(account);
+        em.getTransaction().commit();
+    }
+
 
 
     public BankEmployee logInEmployee(String login, String password) {

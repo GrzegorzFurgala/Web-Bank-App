@@ -3,6 +3,8 @@ import com.Greg.BankApp.Repositories.AccountRepository;
 import com.Greg.BankApp.domain.Account;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.Scanner;
 
@@ -32,6 +34,9 @@ public class AccountService {
 
     public List<Account> readAllAccount(){
         return accountRepo.readAllAccounts();
+    }
+    public List<Account> readAllAcceptedAccountsByOwnerId(String ownerId){
+        return accountRepo.readAllAcceptedAccountsByOwnerId(ownerId);
     }
 
     public Account findAccountByAccNumber(int accountNumber){
