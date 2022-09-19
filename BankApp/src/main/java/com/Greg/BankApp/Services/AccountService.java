@@ -1,6 +1,9 @@
 package com.Greg.BankApp.Services;
 import com.Greg.BankApp.Repositories.AccountRepository;
+import com.Greg.BankApp.Starter;
 import com.Greg.BankApp.domain.Account;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +13,8 @@ import java.util.Scanner;
 
 @Service
 public class AccountService {
+
+    Logger logger = LoggerFactory.getLogger(Starter.class);
 
     @Autowired
     AccountRepository accountRepo;
@@ -22,16 +27,13 @@ public class AccountService {
         String account_holder_first_name = sc.nextLine();
         System.out.println("Enter account holder last name");
         String account_holder_last_name = sc.nextLine();
-
         Account newAccount = new Account(account_holder_first_name,account_holder_last_name);
         accountRepo.createAccount(newAccount);
         return newAccount;
     }
-
     public Account saveAccount(Account account){
         return accountRepo.saveAccount(account);
     }
-
     public List<Account> readAllAccount(){
         return accountRepo.readAllAccounts();
     }
@@ -58,11 +60,13 @@ public class AccountService {
         System.out.println("Enter amount to deposit");
         amount = sc.nextDouble();
         newBalance = balance + amount;
-
         Account account = accountRepo.findAccountByAccNumber(accountNumber);
         account.setAccount_balance(newBalance);
         Account updatedAccount = accountRepo.saveAccount(account);
         System.out.println("Your new balance: "+ updatedAccount.getAccount_balance());
+        logger.info("new deposit has been made or account number: "+accountNumber);
+        logger.info("amount of deposit: "+amount);
+        logger.info("new account balance: "+newBalance );
     }
 
     public void withdraw(int accountNumber, double balance){

@@ -130,5 +130,12 @@ public class EmployeeRepository {
         return null;
     }
 
+    public List<Account> showNotApprovedAccounts(){
+        TypedQuery<Account> notApprovedAccout = em.createQuery("select a from Account a where a.account_approved = false",Account.class);
+        return notApprovedAccout.getResultList();
+    }
+
+
+
 
 }

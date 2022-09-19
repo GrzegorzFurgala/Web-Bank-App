@@ -3,7 +3,6 @@ import javax.persistence.*;
 
 @Entity
 public class Account {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int account_number;
@@ -12,7 +11,6 @@ public class Account {
     private double account_balance;
     boolean account_approved;
     String owner_id;
-
 
 
     public Account() {

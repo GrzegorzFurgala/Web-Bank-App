@@ -19,14 +19,12 @@ public class AccountRepository {
         em.persist(account);
         em.getTransaction().commit();
     }
-
     public Account saveAccount(Account account){
         em.getTransaction().begin();
         Account updatedAccount =  em.merge(account);
         em.getTransaction().commit();
         return updatedAccount;
     }
-
 
     public List<Account> readAllAccounts(){
         List<Account> allAccounts = em.createQuery("Select a from Account a ").getResultList();

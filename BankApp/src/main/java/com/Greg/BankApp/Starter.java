@@ -6,6 +6,8 @@ import com.Greg.BankApp.Services.CustomerService;
 import com.Greg.BankApp.Services.EmployeeService;
 import com.Greg.BankApp.domain.Account;
 import com.Greg.BankApp.menu.Menu;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -38,11 +40,13 @@ public class Starter implements CommandLineRunner {
         service.saveCustomer(cus);
         */
 
-
+        Logger logger = LoggerFactory.getLogger(Starter.class);
 
         //System.out.println(accRepo.readAllAcceptedAccountsByOwnerId("GR123"));
 
         menu.mainMenu();
+
+
 
         //employeeService.approveCustomerBankAccount(56);
 

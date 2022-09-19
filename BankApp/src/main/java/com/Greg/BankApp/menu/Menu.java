@@ -28,7 +28,6 @@ public class Menu {
     DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
     String formatedTime = time.format(format);
 
-
     public void mainMenu() {
         String login = "";
         String password = "";
@@ -115,9 +114,7 @@ public class Menu {
                     Account account = accService.createNewAccount();
                     customer.addAccountToTheList(account);
                     cusService.saveCustomer(customer);
-
-                    //2) dodanie powstalego konta do Set<Account> accountList przez metode addAccountToTheList z customer
-                    //3) zapisanie zupdatowanego customera do bazy
+                    customerAccountView(customer);
                     break;
                 case 3:
                     changePersonalDetails(customer);
@@ -266,7 +263,8 @@ public class Menu {
         System.out.println("3) View  all bank accounts details");
         System.out.println("4) View individual customer detail");
         System.out.println("5) Approve account");
-        System.out.println("6) back to main menu");
+        System.out.println("6) show not approved accounts");
+        System.out.println("7) back to main menu");
         System.out.println("0) exit");
         int option;
         option = sc.nextInt();
@@ -300,6 +298,10 @@ public class Menu {
                 employeeMenu(employee);
                 break;
             case 6:
+                employeeService.showNotApprovedAccounts();
+                employeeMenu(employee);
+                break;
+            case 7:
                 mainMenu();
                 break;
 
@@ -322,7 +324,13 @@ public class Menu {
         System.out.println("3) View  all bank accounts details");
         System.out.println("4) View individual customer detail");
         System.out.println("5) Approve account");
-        System.out.println("6) back to main menu");
+        System.out.println("6) Show notApproved accounts");
+        System.out.println("-------------------------------------------------------");
+        System.out.println("7) deposit");
+        System.out.println("8) withdraw");
+        System.out.println("9) transfer");
+        System.out.println("-------------------------------------------------------");
+        System.out.println("10) back to main menu");
         System.out.println("0) exit");
         int option;
         option = sc.nextInt();
@@ -355,6 +363,28 @@ public class Menu {
                 adminMenu(admin);
                 break;
             case 6:
+                employeeService.showNotApprovedAccounts();
+                adminMenu(admin);
+                break;
+            case 7:
+                System.out.println("Enter account number");
+                int accauntNumber2 = sc.nextInt();
+                employeeService.depositByAdmin(accauntNumber2);
+                adminMenu(admin);
+                break;
+            case 8:
+                System.out.println("Enter account number");
+                int accauntNumber3 = sc.nextInt();
+                employeeService.withdrawByAdmin(accauntNumber3);
+                adminMenu(admin);
+                break;
+            case 9:
+                System.out.println("Enter account number you want withdrow moey from");
+                int accauntNumber4 = sc.nextInt();
+                employeeService.transferByAdmin(accauntNumber4);
+                adminMenu(admin);
+                break;
+            case 10:
                 mainMenu();
                 break;
                 case 0:
