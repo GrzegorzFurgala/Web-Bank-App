@@ -10,10 +10,11 @@ public class Account {
     private String account_holder_last_name;
     private double account_balance;
     boolean account_approved;
-    String owner_id;
+    private String owner_id;
 
 
     public Account() {
+        this.account_balance = 1000;
     }
 
     public Account(String account_holder_first_name, String account_holder_last_name) {
@@ -63,6 +64,13 @@ public class Account {
         this.account_balance = account_balance;
     }
 
+    public String getOwner_id() {
+        return owner_id;
+    }
+
+    public void setOwner_id(String owner_id) {
+        this.owner_id = owner_id;
+    }
 
     @Override
     public String toString() {

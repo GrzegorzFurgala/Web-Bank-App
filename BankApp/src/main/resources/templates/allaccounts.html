@@ -10,10 +10,25 @@
 
 </head>
 <body>
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr><td>Account Number</td><td>First Name</td><td>Last Name</td>
+            <td>Account Balance</td><td>Owner Id</td><td>Account Approved</td></tr>
+        </thead>
 
-    <div th:each="konto : ${accounts}">
-        <p th:text="${konto.account_holder_first_name}"/>
-    </div>
+        <tbody th:each="konto : ${accounts}">
+        <tr>
+            <td th:text="${konto.account_number}"></td>
+            <td th:text="${konto.account_holder_first_name}"></td>
+            <td th:text="${konto.account_holder_last_name}"></td>
+            <td th:text="${konto.account_balance}"></td>
+            <td th:text="${konto.owner_id}"></td>
+            <td th:text="${konto.account_approved}"></td>
+        </tr>
 
+        </tbody>
+    </table>
+</div>
 </body>
 </html>

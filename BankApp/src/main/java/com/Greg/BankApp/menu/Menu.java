@@ -33,7 +33,7 @@ public class Menu {
         String password = "";
         System.out.println("Welcome to the Bank");
         System.out.println("1) log in into Your account");
-        System.out.println("2) create new account");
+        System.out.println("2) create new customer account");
         System.out.println("3) login as bank employee");
         int option = sc.nextInt();
         sc.nextLine();
