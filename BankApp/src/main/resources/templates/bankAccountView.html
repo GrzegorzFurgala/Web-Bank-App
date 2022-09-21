@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Bank Account View</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF=8"/>
+
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.1.3/css/bootstrap.min.css}"/>
+    <script th:src="@{webjars/jquery/3.6.0/jquery.min.js}"></script>
+    <script th:src="@{webjars/bootstrap/5.1.3/js/bootstrap.min.js}"></script>
+
+</head>
+<body>
+<div class="container">
+    <table>
+        <thead>
+        <tr>
+            <td>Account Number </td><td>First Name </td><td>Last Name </td><td>Account Balance</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td th:text="${acc.account_number}"></td>
+            <td th:text="${acc.account_holder_first_name}"></td>
+            <td th:text="${acc.account_holder_last_name}"></td>
+            <td th:text="${acc.account_balance}"></td>
+        </tr>
+        </tbody>
+    </table>
+    </br></br></br></br>
+
+    <p><a th:href="${'/deposit?accnumb='+acc.account_number}">Wplac Pieniadze</a></p>
+    <p><a href="/withdraw">wyplac</a></p>
+    <p><a href="/transfer">przelew</a></p>
+    <p><a href="/previousMenu">poprzednie menue</a></p>
+
+
+
+</div>
+</body>
+</html>

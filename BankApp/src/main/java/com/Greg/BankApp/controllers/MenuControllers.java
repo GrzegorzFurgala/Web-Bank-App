@@ -26,18 +26,16 @@ public class MenuControllers {
 
     @GetMapping("/credentials")
     public String credentials(){
-
         return "credentials";
     }
 
 
     @GetMapping("/customerAccountView")
     public String loginIntoCustomerAccount(
-            @RequestParam(value = "login",required = false) String login,
-            @RequestParam(value = "password",required = false) String pass,Model model){
+            @RequestParam(value = "login") String login,
+            @RequestParam(value = "password") String pass,Model model){
             Customer customer = customerService.logIn(login,pass);
             model.addAttribute("cusIntersession", customer);
-
         return "customerAccountView";
     }
 

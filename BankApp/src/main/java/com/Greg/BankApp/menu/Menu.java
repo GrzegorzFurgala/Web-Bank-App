@@ -187,7 +187,7 @@ public class Menu {
         switch (option){
 
             case 1:
-                accService.deposit(accountNumber,account.getAccount_balance());
+                //accService.deposit(accountNumber,account.getAccount_balance());
                 accountView(accountNumber,customer);
                 break;
             case 2:

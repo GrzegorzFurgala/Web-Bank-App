@@ -54,11 +54,11 @@ public class AccountService {
     //------------------Account-operations---------------------------//
     //-------------Deposit---withdraw---Transfer---------------------//
 
-    public void deposit(int accountNumber, double balance){
+    public void deposit(int accountNumber, double balance, double amount){
         double newBalance;
-        double amount;
-        System.out.println("Enter amount to deposit");
-        amount = sc.nextDouble();
+        // WEB double amount;
+        // WEB System.out.println("Enter amount to deposit");
+        // WEB amount = sc.nextDouble();
         newBalance = balance + amount;
         Account account = accountRepo.findAccountByAccNumber(accountNumber);
         account.setAccount_balance(newBalance);

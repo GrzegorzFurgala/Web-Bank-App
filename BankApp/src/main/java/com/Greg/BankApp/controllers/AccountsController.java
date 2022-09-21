@@ -1,5 +1,4 @@
 package com.Greg.BankApp.controllers;
-
 import com.Greg.BankApp.Services.AccountService;
 import com.Greg.BankApp.domain.Account;
 import com.Greg.BankApp.domain.Customer;
@@ -9,9 +8,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.util.List;
+import java.util.concurrent.Callable;
 
 @Controller
 @SessionAttributes("cusIntersession")
@@ -41,16 +42,36 @@ public class AccountsController {
 
         @GetMapping("/bankAccountList")
         public String customerApprovedBankAccounts(Model model){
-            //todo kontroler sluzy do wyswietlania wszystkich zaakceptowanych kont, potrzebuje id klienta zeby wykorzystac metode
-           Customer edyta = (Customer)model.getAttribute("cusIntersession");
-            System.out.println(edyta.getFirstname());
-            System.out.println(edyta.getLastname());
-            System.out.println(edyta);
-
-            //accService.readAllAcceptedAccountsByOwnerId(idNumber)
-            return "allaccounts";
+            Customer customer = (Customer)model.getAttribute("cusIntersession");
+            List<Account>approvedBankAccounts = accountService.readAllAcceptedAccountsByOwnerId(customer.getIdnumber());
+            model.addAttribute("approvedAccounts",approvedBankAccounts);
+            return "customerApprovedBankAccountList";
         }
 
+        @GetMapping("/bankAccountView")
+        public String bankAccountView(@RequestParam("accnumb") Integer account_number, Model model){
+                Account account = accountService.findAccountByAccNumber(account_number);
+                model.addAttribute("acc",account);
+            return "bankAccountView";
+        }
 
+    @GetMapping("/deposit")
+    public String deposit(@RequestParam("accnumb") Integer account_number, Model model){
+        System.out.println(account_number);
+        Account account = accountService.findAccountByAccNumber(account_number);
+            model.addAttribute("accnumb", account);
+        return "deposit";
+    }
+
+    @GetMapping("/depositPost")
+    public String depositPost(@RequestParam("kwota") Double kwota,
+                            @RequestParam("accnumb") Integer account_number ) {
+
+        Account account = accountService.findAccountByAccNumber(account_number);
+        double balance = account.getAccount_balance();
+        accountService.deposit(account_number,balance,kwota);
+        System.out.println("dupa");
+        return "redirect:/bankAccountList";
+    }
 
 }
