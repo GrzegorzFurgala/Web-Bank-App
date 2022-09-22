@@ -56,7 +56,7 @@ public class CustomerRepository {
             return kontoKlienta.getSingleResult();
         }catch(NoResultException e){
             System.out.println("podany login lub haslo sa nieprawidlowe, sprobuj ponownie");
-            System.exit(1);
+
         }
         return null;
     }

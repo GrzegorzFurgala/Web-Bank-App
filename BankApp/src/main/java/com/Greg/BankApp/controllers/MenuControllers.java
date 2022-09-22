@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
-@SessionAttributes("cusIntersession")
+@SessionAttributes({"cusIntersession","login","password"})
 public class MenuControllers {
 
     @Autowired
@@ -29,14 +29,24 @@ public class MenuControllers {
         return "credentials";
     }
 
-
     @GetMapping("/customerAccountView")
     public String loginIntoCustomerAccount(
             @RequestParam(value = "login") String login,
-            @RequestParam(value = "password") String pass,Model model){
+            @RequestParam(value = "password") String pass,
+            Model model){
+
             Customer customer = customerService.logIn(login,pass);
+            if(customer == null){
+                return "redirect:/wrongPass";
+            }
+            model.addAttribute("login",login);
+            model.addAttribute("password",pass);
             model.addAttribute("cusIntersession", customer);
         return "customerAccountView";
+    }
+    @GetMapping("/wrongPass")
+    public String wrongPass(){
+        return "wrongPass";
     }
 
 

@@ -187,15 +187,15 @@ public class Menu {
         switch (option){
 
             case 1:
-                //accService.deposit(accountNumber,account.getAccount_balance());
+                //WEB accService.deposit(accountNumber,account.getAccount_balance());
                 accountView(accountNumber,customer);
                 break;
             case 2:
-                accService.withdraw(accountNumber,account.getAccount_balance());
+                //WEB accService.withdraw(accountNumber,account.getAccount_balance());
                 accountView(accountNumber,customer);
                 break;
             case 3:
-                accService.transfer(accountNumber,account.getAccount_balance());
+                //WEB accService.transfer(accountNumber,account.getAccount_balance());
                 accountView(accountNumber,customer);
                 break;
             case 0:

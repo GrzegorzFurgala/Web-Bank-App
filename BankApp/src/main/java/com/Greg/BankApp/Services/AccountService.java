@@ -50,7 +50,6 @@ public class AccountService {
 
     }
 
-
     //------------------Account-operations---------------------------//
     //-------------Deposit---withdraw---Transfer---------------------//
 
@@ -69,18 +68,19 @@ public class AccountService {
         logger.info("new account balance: "+newBalance );
     }
 
-    public void withdraw(int accountNumber, double balance){
+    public void withdraw(int accountNumber, double balance, double kwota){
         double newBalance;
-        double amount;
-        System.out.println("Enter amount to withdraw");
-        amount = sc.nextDouble();
-        newBalance = balance - amount;
+        //WEB double amount;
+        //WEB System.out.println("Enter amount to withdraw");
+        //WEB amount = sc.nextDouble();
+        newBalance = balance - kwota;
 
-        if(balance < amount){
+        if(balance < kwota){
             System.out.println("There is not enough money on your account");
             System.out.println("Your current account balance is: "+balance);
             System.out.println("Please try again");
-            withdraw(accountNumber,balance);
+
+            //WEB withdraw(accountNumber,balance,kwota); zapentla sie bo wszystkie parametry sa z gory podane i nie mozna ich zmienic
         }else{
             Account account = accountRepo.findAccountByAccNumber(accountNumber);
             account.setAccount_balance(newBalance);
@@ -88,30 +88,29 @@ public class AccountService {
         }
     }
 
-    public void transfer (int accountNumber, double balance){
+    public void transfer (int accountNumber, double balance, double kwota, int receiver){
         double newBalance;
-        double amount;
-        int accNumberToTransfer;
-        System.out.println("Enter account number for transfer");
-        accNumberToTransfer = sc.nextInt();
-        System.out.println("Enter the amount for transfer");
-        amount = sc.nextDouble();
+        //WEB double amount;
+        //WEB int accNumberToTransfer;
+        //WEB System.out.println("Enter account number for transfer");
+        //WEB accNumberToTransfer = sc.nextInt();
+        //WEB System.out.println("Enter the amount for transfer");
+        //WEB amount = sc.nextDouble();
+        newBalance = balance - kwota;
 
-        newBalance = balance - amount;
-
-        if(balance < amount){
+        if(balance < kwota){
             System.out.println("There is not enough money on your account");
             System.out.println("Your current account balance is: "+balance);
             System.out.println("Please try again");
-            transfer(accountNumber,balance);
+            //transfer(accountNumber,balance);
         }else{
             Account senderAccount = findAccountByAccNumber(accountNumber);
             senderAccount.setAccount_balance(newBalance);
             accountRepo.saveAccount(senderAccount);
 
-            Account receiverBankAccount = findAccountByAccNumber(accNumberToTransfer);
+            Account receiverBankAccount = findAccountByAccNumber(receiver);
             double reciverBalance = receiverBankAccount.getAccount_balance();
-            double updatedReciverBalance = reciverBalance + amount;
+            double updatedReciverBalance = reciverBalance + kwota;
             receiverBankAccount.setAccount_balance(updatedReciverBalance);
             accountRepo.saveAccount(receiverBankAccount);
         }

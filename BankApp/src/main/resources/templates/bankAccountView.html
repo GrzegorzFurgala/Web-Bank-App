@@ -28,10 +28,10 @@
     </table>
     </br></br></br></br>
 
-    <p><a th:href="${'/deposit?accnumb='+acc.account_number}">Wplac Pieniadze</a></p>
-    <p><a href="/withdraw">wyplac</a></p>
-    <p><a href="/transfer">przelew</a></p>
-    <p><a href="/previousMenu">poprzednie menue</a></p>
+    <p><a th:href="${'/deposit?accnumb='+acc.account_number}">wplac pieniadze</a></p>
+    <p><a th:href="${'/withdraw?accnumb='+acc.account_number}">wyplac pieniadze</a></p>
+    <p><a th:href="${'/transfer?accnumb='+acc.account_number}">przelew</a></p>
+    <p><a th:href="${'/customerAccountView?login='+login+'&password='+password}">poprzednie menue</a></p>
 
 
 

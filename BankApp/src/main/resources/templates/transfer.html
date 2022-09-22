@@ -10,6 +10,7 @@
 </head>
 <body>
 <div class="container">
+
     <table>
         <thead>
         <tr>
@@ -18,19 +19,21 @@
         </thead>
         <tbody>
         <tr>
-            <td th:text="${accnumb.account_number}"></td>
-            <td th:text="${accnumb.account_holder_first_name}"></td>
-            <td th:text="${accnumb.account_holder_last_name}"></td>
-            <td th:text="${accnumb.account_balance}"></td>
+            <td th:text="${account.account_number}"></td>
+            <td th:text="${account.account_holder_first_name}"></td>
+            <td th:text="${account.account_holder_last_name}"></td>
+            <td th:text="${account.account_balance}"></td>
         </tr>
         </tbody>
     </table>
-    </br></br>
+    </br></br></br></br>
 
-    <form th:action="${'/depositPost'}">
+    <form th:action="${'/transferPost'}">
         <input type="number" th:name="kwota"/>
+        <input type="number" th:name="receiver"/>
         <button type="submit" class="btn btn-default">wyslij przelew</button>
     </form>
+
 
 
 </div>
