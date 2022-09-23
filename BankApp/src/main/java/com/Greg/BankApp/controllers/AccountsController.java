@@ -1,5 +1,6 @@
 package com.Greg.BankApp.controllers;
 import com.Greg.BankApp.Services.AccountService;
+import com.Greg.BankApp.Services.CustomerService;
 import com.Greg.BankApp.domain.Account;
 import com.Greg.BankApp.domain.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,8 @@ public class AccountsController {
 
     @Autowired
     AccountService accountService;
+    @Autowired
+    CustomerService customerService;
 
         @GetMapping("/accounts")
         public String getAllAccounts(Model model){
@@ -24,19 +27,14 @@ public class AccountsController {
             model.addAttribute("accounts",allAccounts);
         return "allaccounts";
         }
-
-        @GetMapping("/newAccount")
-        public String newBankAccountForm(Model model){
-            model.addAttribute("newAcc", new Account());
-            return "newBankAccount";
-        }
-
         @PostMapping("/newAccounts")
-        public String saveAccount(Account account){
-            accountService.saveAccount(account);
-            return "redirect:/accounts";
+        public String saveAccount(Account account, Model model){
+            accountService.createNewAccount(account);
+            Customer customer = (Customer)model.getAttribute("cusIntersession");
+            customer.addAccountToTheList(account);
+            customerService.saveCustomer(customer);
+            return "redirect:/bankAccountList";
         }
-
         @GetMapping("/bankAccountList")
         public String customerApprovedBankAccounts(Model model){
             Customer customer = (Customer)model.getAttribute("cusIntersession");
@@ -44,7 +42,6 @@ public class AccountsController {
             model.addAttribute("approvedAccounts",approvedBankAccounts);
             return "customerApprovedBankAccountList";
         }
-
         @GetMapping("/bankAccountView")
         public String bankAccountView(@RequestParam("accnumb") Integer account_number,
                                       Model model){
@@ -63,7 +60,6 @@ public class AccountsController {
             model.addAttribute("accnumb", account);
         return "deposit";
     }
-
     @GetMapping("/depositPost")
     public String depositPost(@RequestParam("kwota") Double kwota, Model model) {
 
@@ -81,7 +77,6 @@ public class AccountsController {
             int accountNumber = (int)model.getAttribute("accountNumber");
         return "depositNegativeValue";
     }
-
     //-------------------WITHDRAW---CONTROLLERs------------------------------------------------
     @RequestMapping("/withdraw")
     public String withdraw(@RequestParam("accnumb") Integer account_number, Model model){
@@ -113,7 +108,6 @@ public class AccountsController {
         int accountNumber = (int)model.getAttribute("accountNumber");
         return "withdrawNegativeValue";
     }
-
 
     //-------------------Transfer---CONTROLLERS------------------------------------------------
     @RequestMapping("/transfer")
@@ -149,6 +143,15 @@ public class AccountsController {
         int accountNumber = (int)model.getAttribute("accountNumber");
          return "transferLackofFunds";
     }
+
+    //-------------------Applay--for--new--controller----------------------
+
+    @GetMapping("/newAccount")
+    public String newBankAccountForm(Model model){
+        model.addAttribute("newAcc", new Account());
+        return "newBankAccountForm";
+    }
+
 
 
 }

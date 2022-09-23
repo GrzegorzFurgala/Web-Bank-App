@@ -92,8 +92,6 @@ public class Menu {
         }
     }
 
-
-
     public void customerAccountView(Customer customer){
         System.out.println("------------------------------------------------------------------------------------");
         System.out.println("Hello: "+customer.getFirstname()+"! Welcome to your bank accounts main profile."+" Time: "+ formatedTime);
@@ -109,12 +107,10 @@ public class Menu {
                     customerBankAccountListView(customer);
                     break;
                 case 2:
-                    //todo apply for new account
-
-                    Account account = accService.createNewAccount();
-                    customer.addAccountToTheList(account);
-                    cusService.saveCustomer(customer);
-                    customerAccountView(customer);
+                    //WEB Account account = accService.createNewAccount();
+                    //WEB customer.addAccountToTheList(account);
+                    //WEB cusService.saveCustomer(customer);
+                   // WEB customerAccountView(customer);
                     break;
                 case 3:
                     changePersonalDetails(customer);
@@ -124,7 +120,6 @@ public class Menu {
                     break;
             }
     }
-
 
     public void customerBankAccountListView(Customer customer){
         int accountOrderNumber = 1;

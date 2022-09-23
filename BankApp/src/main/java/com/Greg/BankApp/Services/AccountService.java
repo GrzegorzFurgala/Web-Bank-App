@@ -22,14 +22,14 @@ public class AccountService {
     Scanner sc = new Scanner(System.in);
 
 
-    public Account createNewAccount(){
-        System.out.println("Enter account holder first name");
-        String account_holder_first_name = sc.nextLine();
-        System.out.println("Enter account holder last name");
-        String account_holder_last_name = sc.nextLine();
-        Account newAccount = new Account(account_holder_first_name,account_holder_last_name);
-        accountRepo.createAccount(newAccount);
-        return newAccount;
+    public void createNewAccount(Account account){
+        //System.out.println("Enter account holder first name");
+        //String account_holder_first_name = sc.nextLine();
+        //System.out.println("Enter account holder last name");
+        //String account_holder_last_name = sc.nextLine();
+        //Account newAccount = new Account(account_holder_first_name,account_holder_last_name);
+        accountRepo.createAccount(account);
+
     }
     public Account saveAccount(Account account){
         return accountRepo.saveAccount(account);

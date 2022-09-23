@@ -16,6 +16,10 @@ public class Account {
     public Account() {
         this.account_balance = 1000;
     }
+    public Account(String owner_id) {
+        this.owner_id = owner_id;
+        this.account_balance = 1000;
+    }
 
     public Account(String account_holder_first_name, String account_holder_last_name) {
         this.account_holder_first_name = account_holder_first_name;
