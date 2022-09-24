@@ -70,6 +70,20 @@ public class CustomerControllers {
         return "changePersonalDetailsApproval";
     }
 
+    @RequestMapping("/newCustomerAccountForm")
+    public String newCustomerAccountForm(Model model){
+        model.addAttribute("newCustomer", new Customer());
+        return "newCustomerAccountForm";
+    }
+
+
+
+    @PostMapping("/newCustomerAccountPost")
+    public String saveAccount(Customer customer){
+        customerService.createCustomer(customer);
+        return "redirect:/mainMenu";
+    }
+
 
 
 }

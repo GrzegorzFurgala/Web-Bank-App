@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>New Customer Account</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF=8"/>
+
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.1.3/css/bootstrap.min.css}"/>
+    <script th:src="@{webjars/jquery/3.6.0/jquery.min.js}"></script>
+    <script th:src="@{webjars/bootstrap/5.1.3/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div class="container">
+
+    <form class="form-horizontal" th:object="${newCustomer}" th:action="@{/newCustomerAccountPost}" th:method="post">
+        <div class="form-group">
+            <label class="control-label">Imie</label>
+            <input type="text" class="form-control" th:field="*{firstname}"/>
+        </div>
+        <div class="form-group">
+            <label class="control-label">Nazwisko</label>
+            <input type="text" class="form-control" th:field="*{lastname}"/>
+        </div>
+        <div class="form-group">
+            <label class="control-label">Miasto</label>
+            <input type="text" class="form-control" th:field="*{city}"/>
+        </div>
+        <div class="form-group">
+            <label class="control-label">Ulica</label>
+            <input type="text" class="form-control" th:field="*{street}"/>
+        </div>
+        <div class="form-group">
+            <label class="control-label">Kot Pocztowy</label>
+            <input type="text" class="form-control" th:field="*{zipcode}"/>
+        </div>
+        <div class="form-group">
+            <label class="control-label">Email</label>
+            <input type="text" class="form-control" th:field="*{email}"/>
+        </div>
+        <div class="form-group">
+            <label class="control-label">Telefon</label>
+            <input type="text" class="form-control" th:field="*{telephone}"/>
+        </div>
+        <div class="form-group">
+            <label class="control-label">Ustaw Login</label>
+            <input type="text" class="form-control" th:field="*{login}"/>
+        </div>
+        <div class="form-group">
+            <label class="control-label">Ustaw Haslo</label>
+            <input type="text" class="form-control" th:field="*{password}"/>
+        </div>
+        <div class="form-group">
+            <label class="control-label">Idnumber</label>
+            <input type="text" class="form-control" th:field="*{idnumber}"/>
+        </div>
+
+
+
+        <div class="row">
+            <button type="submit" class="btn btn-default">Utworz konto</button>
+        </div>
+
+    </form>
+
+</div>
+</body>
+</html>

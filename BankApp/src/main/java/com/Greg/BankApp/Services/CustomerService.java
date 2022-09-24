@@ -16,7 +16,8 @@ public class CustomerService {
     public CustomerService() {
     }
 
-    public Customer createCustomer(){
+    public Customer createCustomer(Customer customer){
+        /*
         System.out.println("Enter Your first name");
         String firstName = sc.nextLine();
         System.out.println("Enter Your last name");
@@ -37,21 +38,16 @@ public class CustomerService {
         String login = sc.nextLine();
         System.out.println("Set-up Your password");
         String password = sc.nextLine();
-
-       Customer customer = new Customer(idnumber,firstName,lastName,street,city,zipCode,email,telephone,login,password);
+        */
+       //Customer customer = new Customer(idnumber,firstName,lastName,street,city,zipCode,email,telephone,login,password);
        customerRepo.createCustomer(customer);
         return customer;
     }
 
+
+
+
     public Customer saveCustomer(Customer customer){
-
-
-
-
-
-
-
-
 
         Customer cus = customerRepo.updateCustomer(customer);
         return cus;
