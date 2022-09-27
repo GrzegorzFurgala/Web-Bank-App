@@ -19,6 +19,20 @@ public class EmployeeRepository {
         em.persist(employee);
         em.getTransaction().commit();
     }
+
+    public BankEmployee logInEmployee(String login, String password){
+            try {
+                TypedQuery<BankEmployee> employee = em.createQuery("Select e from BankEmployee e where e.login=:login and e.password=:password", BankEmployee.class);
+                employee.setParameter("login", login);
+                employee.setParameter("password", password);
+                return employee.getSingleResult();
+            }catch (NoResultException e){
+                System.out.println("podany login lub haslo sa nieprawidlowe, sprobuj ponownie");
+            }
+            return null;
+    }
+
+
     public void persist(BankAdmin bankAdmin) {
         em.getTransaction().begin();
         em.persist(bankAdmin);
@@ -58,9 +72,6 @@ public class EmployeeRepository {
         em.remove(admin);
         em.getTransaction().commit();
     }
-
-
-
 
     public List<Customer> readAllCustomers(){
         List<Customer> customerList = em.createQuery("Select c from Customer c").getResultList();
@@ -103,7 +114,7 @@ public class EmployeeRepository {
     }
 
 
-
+    /*WEB
     public BankEmployee logInEmployee(String login, String password) {
         try {
             TypedQuery<BankEmployee> employee = em.createQuery("select e from BankEmployee e where e.login=:loginEmployee and e.password=:pass", BankEmployee.class);
@@ -116,7 +127,7 @@ public class EmployeeRepository {
         }
         return null;
     }
-
+     */
     public BankAdmin logInAdmin(String login, String password) {
         try {
             TypedQuery<BankAdmin> admin = em.createQuery("select a from BankAdmin a where a.login=:loginAdmin and a.password=:pass", BankAdmin.class);
@@ -125,7 +136,7 @@ public class EmployeeRepository {
             return admin.getSingleResult();
         }catch (NoResultException e){
             System.out.println("podany login lub haslo sa nieprawidlowe, sprobuj ponownie");
-            System.exit(1);
+            //System.exit(1);
         }
         return null;
     }

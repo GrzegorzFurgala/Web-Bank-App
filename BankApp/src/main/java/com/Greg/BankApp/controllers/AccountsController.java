@@ -85,7 +85,8 @@ public class AccountsController {
         return "withdraw";
     }
     @GetMapping("/withdrawPost")
-    public String withdrawPost(@RequestParam("kwota") Double kwota, Model model) {
+    public String withdrawPost(@RequestParam("kwota") Double kwota,
+                               Model model) {
         int account_number = (int)model.getAttribute("accountNumber");
         Account account = accountService.findAccountByAccNumber(account_number);
         double balance = account.getAccount_balance();
@@ -96,8 +97,8 @@ public class AccountsController {
             return "redirect:/lackofFunds";
         }
         accountService.withdraw(account_number,balance,kwota);
-        return "redirect:/bankAccountList";
-    }
+        return "redirect:/bankAccountView";  /// zjebane przekierowanie potrzebuje parametru account number
+    }                                        /////////////////////////////////////////////////////////////////////
     @GetMapping("/lackofFunds")
     public String lackofFundsWithdraw(Model model) {
         int accountNumber = (int)model.getAttribute("accountNumber");

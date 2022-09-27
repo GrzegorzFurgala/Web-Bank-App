@@ -247,7 +247,6 @@ public class Menu {
         }
     }
 
-
     //----------------------------------------Bank---Stuff---Menus--------------------------------//
 
     public void employeeMenu(BankEmployee employee){
@@ -362,17 +361,22 @@ public class Menu {
                 adminMenu(admin);
                 break;
             case 7:
+                /* WEB
                 System.out.println("Enter account number");
                 int accauntNumber2 = sc.nextInt();
                 employeeService.depositByAdmin(accauntNumber2);
                 adminMenu(admin);
                 break;
+                */
+
             case 8:
+                /*
                 System.out.println("Enter account number");
                 int accauntNumber3 = sc.nextInt();
                 employeeService.withdrawByAdmin(accauntNumber3);
                 adminMenu(admin);
                 break;
+                */
             case 9:
                 System.out.println("Enter account number you want withdrow moey from");
                 int accauntNumber4 = sc.nextInt();

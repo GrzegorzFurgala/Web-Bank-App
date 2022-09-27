@@ -1,7 +1,9 @@
 package com.Greg.BankApp.controllers;
 
 import com.Greg.BankApp.Repositories.CustomerRepository;
+import com.Greg.BankApp.Repositories.EmployeeRepository;
 import com.Greg.BankApp.Services.CustomerService;
+import com.Greg.BankApp.Services.EmployeeService;
 import com.Greg.BankApp.domain.Account;
 import com.Greg.BankApp.domain.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,12 +11,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @SessionAttributes({"cusIntersession","login","password"})
 public class MenuControllers {
 
     @Autowired
     CustomerService customerService;
+    @Autowired
+    EmployeeService employeeService;
 
     @GetMapping("/mainMenu")
     public String mainMenu(){
@@ -48,9 +54,10 @@ public class MenuControllers {
 
     @RequestMapping("/bankStaffMenu")
     public String bankStaffMenu(){
-
         return "bankStaffMenu";
     }
+
+
 
 
 

@@ -69,17 +69,20 @@ public class EmployeeService {
 
     //----------------------Operations--on--accounts-------------------------------//
 
-    public void readAllCustomers() {
-        List<Customer>customerList = employeeRepository.readAllCustomers();
-        customerList.stream().forEach(customer -> System.out.println(customer));
+    public List<Customer> readAllCustomers() {
+        List<Customer> customerList = employeeRepository.readAllCustomers();
+        //WEB customerList.stream().forEach(customer -> System.out.println(customer));
+        return customerList;
     }
-    public void readCustomerById(String idnumber){
+    public Customer readCustomerById(String idnumber){
         Customer customer = employeeRepository.readCustomerById(idnumber);
-        System.out.println(customer);
+        //WEB System.out.println(customer);
+        return customer;
     }
-    public void readAllAccounts(){
+    public List<Account> readAllAccounts(){
         List<Account> accountList = employeeRepository.readAllAccounts();
-        accountList.forEach(account -> System.out.println(account));
+        //WEB accountList.forEach(account -> System.out.println(account));
+        return accountList;
     }
     public Account readAccountByAccountNumber(int accountNumber){
         Account account = employeeRepository.readAccountByAccountNumber(accountNumber);
@@ -103,26 +106,28 @@ public class EmployeeService {
     public void disapproveCustomerBankAccount(int accountNumber){
         employeeRepository.disapproveCustomerAccount(accountNumber);
     }
-    public void showNotApprovedAccounts(){
+    public List<Account> showNotApprovedAccounts(){
         List<Account> notApprovedAccountst= employeeRepository.showNotApprovedAccounts();
-        notApprovedAccountst.forEach(account -> System.out.println(account));
+        return notApprovedAccountst;
+        //WEB notApprovedAccountst.forEach(account -> System.out.println(account));
     }
-    public void depositByAdmin(int accountNumber){
+    public void depositByAdmin(int accountNumber, double amount){
         Account account = readAccountByAccountNumber(accountNumber);
         double balance = account.getAccount_balance();
         double newBalance;
-        System.out.println("Enter amount to deposit");
-        double amount = sc.nextDouble();
+        //WEB System.out.println("Enter amount to deposit");
+        //WEB double amount = sc.nextDouble();
         newBalance = balance + amount;
         account.setAccount_balance(newBalance);
         accountService.saveAccount(account);
     }
-    public void withdrawByAdmin(int accountNumber){
+    public void withdrawByAdmin(Account account, double newBalance){
+       /*
         Account account = readAccountByAccountNumber(accountNumber);
         double balance = account.getAccount_balance();
         double newBalance;
-        System.out.println("Enter amount to withdraw");
-        double amount = sc.nextDouble();
+        //WEB System.out.println("Enter amount to withdraw");
+        //WEB double amount = sc.nextDouble();
 
         if(balance < amount){
             System.out.println("You dont have enogh mony");
@@ -132,9 +137,20 @@ public class EmployeeService {
             account.setAccount_balance(newBalance);
             accountService.saveAccount(account);
         }
+        */
+        account.setAccount_balance(newBalance);
+        accountService.saveAccount(account);
+
+
     }
     public void transferByAdmin(int accountNumber){
 
+
+
+
+
+
+        /*
         Account withdrawAccount = readAccountByAccountNumber(accountNumber);
         double withdrawBalance = withdrawAccount.getAccount_balance();
         System.out.println("Enter amount you want to withdraw");
@@ -157,7 +173,7 @@ public class EmployeeService {
             withdrawAccount.setAccount_balance(updatedWitdrawBalance);
             accountService.saveAccount(withdrawAccount);
         }
-
+        */
     }
 
 

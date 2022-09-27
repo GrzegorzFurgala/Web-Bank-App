@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Approve Account Form</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF=8"/>
+
+  <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.1.3/css/bootstrap.min.css}"/>
+  <script th:src="@{webjars/jquery/3.6.0/jquery.min.js}"></script>
+  <script th:src="@{webjars/bootstrap/5.1.3/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div class="container">
+
+  <form th:action="${'/approveAccount'}">
+
+    <div>Podaj numer knota bankowego</div>
+    </br></br>
+
+    <div class="form-group">
+      <label class="control-label">numer konta</label>
+      <input type="text" class="form-control" th:name="account_number"/>
+    </div>
+
+    <button type="submit" class="btn btn-default">zatwierdz konto</button>
+  </form>
+
+</div>
+</body>
+</html>
