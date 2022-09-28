@@ -1,8 +1,6 @@
 package com.Greg.BankApp.Repositories;
-
 import com.Greg.BankApp.domain.Account;
 import org.springframework.stereotype.Repository;
-
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
@@ -39,7 +37,6 @@ public class AccountRepository {
         return customerApprovedBankAccounts;
     }
 
-
     public Account findAccountByAccNumber(int account_number){
         return em.find(Account.class, account_number);
     }
@@ -50,8 +47,5 @@ public class AccountRepository {
         em.remove(cus);
         em.getTransaction().commit();
     }
-
-
-
 
 }

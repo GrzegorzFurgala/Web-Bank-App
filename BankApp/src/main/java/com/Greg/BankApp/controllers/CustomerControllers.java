@@ -1,8 +1,6 @@
 package com.Greg.BankApp.controllers;
-
 import com.Greg.BankApp.Services.AccountService;
 import com.Greg.BankApp.Services.CustomerService;
-import com.Greg.BankApp.domain.Account;
 import com.Greg.BankApp.domain.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,16 +10,13 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @SessionAttributes({"cusIntersession", "accountNumber","login","password"})
 public class CustomerControllers {
-
     @Autowired
     AccountService accountService;
     @Autowired
     CustomerService customerService;
 
     @GetMapping("/changePersonalDetailsForm")
-    public String changePersonalDetailsForm(Model model){
-        Customer customer = (Customer)model.getAttribute("cusIntersession");
-        model.addAttribute("customer",customer);
+    public String changePersonalDetailsForm(){
       return "changePersonalDetailsForm";
     }
     @GetMapping("/changePersonalDetails")
@@ -33,9 +28,6 @@ public class CustomerControllers {
                                          @RequestParam("email") String email,
                                          @RequestParam("phone") String phone,
                                          Model model){
-
-       String login = (String)model.getAttribute("login");
-       String password = (String)model.getAttribute("password");
 
         Customer customer = (Customer)model.getAttribute("cusIntersession");
 
@@ -76,14 +68,10 @@ public class CustomerControllers {
         return "newCustomerAccountForm";
     }
 
-
-
     @PostMapping("/newCustomerAccountPost")
     public String saveAccount(Customer customer){
         customerService.createCustomer(customer);
         return "redirect:/mainMenu";
     }
-
-
-
+    
 }

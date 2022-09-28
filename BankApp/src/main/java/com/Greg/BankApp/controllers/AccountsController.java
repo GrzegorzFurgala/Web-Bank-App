@@ -4,18 +4,14 @@ import com.Greg.BankApp.Services.CustomerService;
 import com.Greg.BankApp.domain.Account;
 import com.Greg.BankApp.domain.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-import java.util.concurrent.Callable;
 
 @Controller
 @SessionAttributes({"cusIntersession", "accountNumber","login","password"})
 public class AccountsController {
-
     @Autowired
     AccountService accountService;
     @Autowired
@@ -27,11 +23,12 @@ public class AccountsController {
             model.addAttribute("accounts",allAccounts);
         return "allaccounts";
         }
+
         @PostMapping("/newAccounts")
         public String saveAccount(Account account, Model model){
             accountService.createNewAccount(account);
             Customer customer = (Customer)model.getAttribute("cusIntersession");
-            customer.addAccountToTheList(account);
+            customer.addAccountToTheList(account);//<------------!!!!!!!!!!!!!!!!!!!!!sprawdzic czy to nie powduje blad pierwszego konta
             customerService.saveCustomer(customer);
             return "redirect:/bankAccountList";
         }
@@ -45,23 +42,21 @@ public class AccountsController {
         @RequestMapping("/bankAccountView")
         public String bankAccountView(@RequestParam("accnumb") Integer account_number,
                                       Model model){
-
                 model.addAttribute("accountNumber", account_number);
                 Account account = accountService.findAccountByAccNumber(account_number);
                 model.addAttribute("acc",account);
-                String login = (String)model.getAttribute("login");
-                String password = (String)model.getAttribute("password");
             return "bankAccountView";
         }
         //-------------------DEPOSIT---COTROLLERS--------------------------------------
     @RequestMapping("/deposit" )
-    public String deposit(@RequestParam("accnumb") Integer account_number, Model model){
+    public String deposit(@RequestParam("accnumb") Integer account_number,
+                          Model model){
             Account account = accountService.findAccountByAccNumber(account_number);
             model.addAttribute("accnumb", account);
         return "deposit";
     }
     @GetMapping("/depositPost")
-    public String depositPost(@RequestParam("kwota") Double kwota, Model model) {
+    public String depositPost(@RequestParam("kwota") double kwota, Model model) {
 
             if(kwota <= 0){
                 return "redirect:/depositNegativeValue";
@@ -102,18 +97,17 @@ public class AccountsController {
     }
     @GetMapping("/lackofFunds")
     public String lackofFundsWithdraw(Model model) {
-        int accountNumber = (int)model.getAttribute("accountNumber");
         return "lackofFunds";
     }
     @GetMapping("withdrawNegativeValue")
     public String withdrawNegativeValue(Model model){
-        int accountNumber = (int)model.getAttribute("accountNumber");
         return "withdrawNegativeValue";
     }
 
     //-------------------Transfer---CONTROLLERS------------------------------------------------
     @RequestMapping("/transfer")
-    public String transfer(@RequestParam("accnumb") Integer account_number, Model model){
+    public String transfer(@RequestParam("accnumb") Integer account_number,
+                           Model model){
         Account account = accountService.findAccountByAccNumber(account_number);
         model.addAttribute("account", account);
         return "transfer";
@@ -137,23 +131,19 @@ public class AccountsController {
     }
     @GetMapping("/transferNegativeValue")
     public String transferNegativeValue(Model model){
-        int accountNumber = (int)model.getAttribute("accountNumber");
        return "transferNegativeValue";
     }
     @GetMapping("transferLackofFunds")
     public String transferLackofFunds(Model model){
-        int accountNumber = (int)model.getAttribute("accountNumber");
          return "transferLackofFunds";
     }
 
-    //-------------------Applay--for--new--controller----------------------
+    //-------------------Applay--for--new--Account----------------------
 
     @GetMapping("/newAccount")
     public String newBankAccountForm(Model model){
         model.addAttribute("newAcc", new Account());
         return "newBankAccountForm";
     }
-
-
 
 }

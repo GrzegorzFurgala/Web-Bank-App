@@ -10,27 +10,24 @@
 
 </head>
 <body>
-<div class="container">
-    <table class="table">
-        <thead>
-        <tr>
-            <td>Id</td><td>Imie</td><td>Nazwisko</td><td>Stan Konta</td><td>konto zweryfikowanee</td><td>Id Wlasciciela konta</td>
-        </tr>
-        </thead>
-        <tbody th:each="account : ${notApprovedAccounts}">
-        <tr>
-            <td th:text="${account.account_number}"></td>
-            <td th:text="${account.account_holder_first_name}"></td>
-            <td th:text="${account.account_holder_last_name}"></td>
-            <td th:text="${account.account_balance}"></td>
-            <td th:text="${account.account_approved}"></td>
-            <td th:text="${account.owner_id}"></td>
-
-        </tr>
-        </tbody>
-    </table>
-    <p><a th:href="${'/employeeAccountView?login='+login+'&password='+password}">Powrot do menu</a></p>
-
+    <div class="container">
+        <table class="table">
+            <thead>
+            <tr>
+                <td>Id</td><td>Imie</td><td>Nazwisko</td><td>Stan Konta</td><td>konto zweryfikowanee</td>
+            </tr>
+            </thead>
+            <tbody th:each="account : ${notApprovedAccounts}">
+            <tr>
+                <td th:text="${account.account_number}"></td>
+                <td th:text="${account.account_holder_first_name}"></td>
+                <td th:text="${account.account_holder_last_name}"></td>
+                <td th:text="${account.account_balance}"></td>
+                <td th:text="${account.account_approved}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <p><a th:href="${'/employeeAccountView?login='+login+'&password='+password}">Powrot do menu</a></p>
 </div>
 </body>
 </html>

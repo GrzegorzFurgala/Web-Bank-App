@@ -14,7 +14,7 @@
     <table class="table">
         <thead>
         <tr>
-            <td>Id</td><td>Imie</td><td>Nazwisko</td><td>Stan Konta</td><td>konto zweryfikowanee</td><td>Id Wlasciciela konta</td>
+            <td>Id</td><td>Imie</td><td>Nazwisko</td><td>Stan Konta</td><td>konto zweryfikowanee</td>
         </tr>
         </thead>
         <tbody th:each="account : ${notApprovedAccounts}">
@@ -24,8 +24,6 @@
             <td th:text="${account.account_holder_last_name}"></td>
             <td th:text="${account.account_balance}"></td>
             <td th:text="${account.account_approved}"></td>
-            <td th:text="${account.owner_id}"></td>
-
         </tr>
         </tbody>
     </table>

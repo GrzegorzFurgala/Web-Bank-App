@@ -1,11 +1,9 @@
 package com.Greg.BankApp.Repositories;
-
 import com.Greg.BankApp.domain.Account;
 import com.Greg.BankApp.domain.BankAdmin;
 import com.Greg.BankApp.domain.BankEmployee;
 import com.Greg.BankApp.domain.Customer;
 import org.springframework.stereotype.Repository;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -31,7 +29,6 @@ public class EmployeeRepository {
             }
             return null;
     }
-
 
     public void persist(BankAdmin bankAdmin) {
         em.getTransaction().begin();
@@ -113,21 +110,6 @@ public class EmployeeRepository {
         em.getTransaction().commit();
     }
 
-
-    /*WEB
-    public BankEmployee logInEmployee(String login, String password) {
-        try {
-            TypedQuery<BankEmployee> employee = em.createQuery("select e from BankEmployee e where e.login=:loginEmployee and e.password=:pass", BankEmployee.class);
-            employee.setParameter("loginEmployee", login);
-            employee.setParameter("pass", password);
-            return employee.getSingleResult();
-        }catch (NoResultException e){
-            System.out.println("podany login lub haslo sa nieprawidlowe, sprobuj ponownie");
-            System.exit(1);
-        }
-        return null;
-    }
-     */
     public BankAdmin logInAdmin(String login, String password) {
         try {
             TypedQuery<BankAdmin> admin = em.createQuery("select a from BankAdmin a where a.login=:loginAdmin and a.password=:pass", BankAdmin.class);
@@ -145,8 +127,4 @@ public class EmployeeRepository {
         TypedQuery<Account> notApprovedAccout = em.createQuery("select a from Account a where a.account_approved = false",Account.class);
         return notApprovedAccout.getResultList();
     }
-
-
-
-
 }

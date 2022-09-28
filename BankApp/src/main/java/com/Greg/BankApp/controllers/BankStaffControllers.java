@@ -1,5 +1,4 @@
 package com.Greg.BankApp.controllers;
-
 import com.Greg.BankApp.Services.EmployeeService;
 import com.Greg.BankApp.domain.Account;
 import com.Greg.BankApp.domain.BankAdmin;
@@ -19,7 +18,6 @@ import java.util.List;
 public class BankStaffControllers {
     @Autowired
     EmployeeService employeeService;
-
 
     @RequestMapping("/employeeCredentialsForm")
     public String employeeCredentialsForm(){
@@ -60,7 +58,7 @@ public class BankStaffControllers {
     @RequestMapping("/readIndividualCustomer")
     public String readIndividualCustomer(@RequestParam ("idNumber") String idnumber,
                                          Model model){
-        System.out.println(idnumber);
+
         Customer customer = employeeService.readCustomerById(idnumber);
         model.addAttribute("customer", customer);
         return "readIndividualCustomer";
@@ -69,15 +67,14 @@ public class BankStaffControllers {
     @RequestMapping("/readAllBankAccounts")
     public String allBankAccounts(Model model) {
         List<Account> allBankAccountList = employeeService.readAllAccounts();
-        System.out.println(allBankAccountList);
         model.addAttribute("allBankAccounts", allBankAccountList);
         return "readAllBankAccounts";
     }
     @RequestMapping("/readIndividualBankForm")
     public String readIndividualBankForm(){
-
         return "readIndividualBankForm";
     }
+
     @RequestMapping("/readIndividualBankAccount")
     public String readIndividualBankAccount(@RequestParam ("account_number") int accountNumber,
                                          Model model){
@@ -89,11 +86,13 @@ public class BankStaffControllers {
     public String approvedAccount(){
         return "approveAccountForm";
     }
+
     @RequestMapping("/approveAccount")
     public String approveAccount(@RequestParam("account_number") int accountNumber){
         employeeService.approveCustomerBankAccount(accountNumber);
         return "employeeAccountView";
     }
+
     @RequestMapping("/notApprovedAccounts")
     public String notApprovedAccounts(Model model){
         List<Account> notApprovedAccounts = employeeService.showNotApprovedAccounts();
@@ -106,6 +105,7 @@ public class BankStaffControllers {
     public String AdminCredentialsForm(){
         return "adminCredentialsForm";
     }
+
     @RequestMapping("/wrongPassAdmin")
     public String wrongPassAdmin(){
         return "wrongPassAdmin";
@@ -115,7 +115,6 @@ public class BankStaffControllers {
     public String AdminAccountView(@RequestParam("login") String login,
                                    @RequestParam("password") String password,
                                    Model model){
-
         model.addAttribute("login",login);
         model.addAttribute("password",password);
         BankAdmin admin = employeeService.logInAdmin(login,password);
@@ -140,17 +139,14 @@ public class BankStaffControllers {
     @RequestMapping("/readIndividualCustomerAdmin")
     public String readIndividualCustomerAdmin(@RequestParam ("idNumber") String idnumber,
                                               Model model){
-            System.out.println(idnumber);
             Customer customer = employeeService.readCustomerById(idnumber);
             model.addAttribute("customer", customer);
-
         return "readIndividualCustomerAdmin";
     }
 
     @RequestMapping("/readAllBankAccountsAdmin")
     public String allBankAccountsAdmin(Model model) {
         List<Account> allBankAccountList = employeeService.readAllAccounts();
-        //System.out.println(allBankAccountList);
         model.addAttribute("allBankAccounts", allBankAccountList);
         return "readAllBankAccountsAdmin";
     }
@@ -189,10 +185,12 @@ public class BankStaffControllers {
     public String depositByAdminForm(){
         return "depositByAdminForm";
     }
+
     @RequestMapping("/depositNegativeValueAdmin")
     public String depositNegativeValueAdmin(){
         return "depositNegativeValueAdmin";
     }
+
     @RequestMapping("/depositByAdmin")
     public String depositByAdmin(@RequestParam("accountNumber") int accountNumber,
                                  @RequestParam("amount") double amount){
@@ -209,10 +207,12 @@ public class BankStaffControllers {
     public String withdrawByAdminForm(){
         return "withdrawByAdminForm";
     }
+
     @RequestMapping("/withdrawNegativeValueAdmin")
     public String withdrawNegativeValueAdmin(){
         return "withdrawNegativeValueAdmin";
     }
+
     @RequestMapping("/lackofFundsWithdrawAdmin")
     public String lackofFundsWithdrawAdmin(){
         return "lackofFundsWithdrawAdmin";
@@ -221,6 +221,7 @@ public class BankStaffControllers {
     @RequestMapping("/withdrawByAdmin")
     public String withdrawByAdmin(@RequestParam("accountNumber") int accountNumber,
                                   @RequestParam("amount")  double amount){
+
         Account account = employeeService.readAccountByAccountNumber(accountNumber);
         double balance = account.getAccount_balance();
         double newBalance = balance - amount;
@@ -239,20 +240,12 @@ public class BankStaffControllers {
     public String transferbyAdminForm(){
         return "transferByAdminForm";
     }
-    /*
-    @RequestMapping("/transferNegativeValueAdmin")
-    public String transferNegativeValueAdmin(){
-        return "transferNegativeValueAdmin";
-    }
-    */
-    //@RequestMapping("/transferLackofFundsAdmin")
-
-
 
     @RequestMapping("/transferByAdmin")
     public String transferbyAdmin(@RequestParam("withdrawAccountNumber") int withdrawAccountNumber,
                                   @RequestParam("amount") int amount,
                                   @RequestParam("depositAccountNumber") int depositAccountNumber){
+
         Account withdrawAccount = employeeService.readAccountByAccountNumber(withdrawAccountNumber);
         double withdrawAccountBalance = withdrawAccount.getAccount_balance();
 
@@ -261,12 +254,8 @@ public class BankStaffControllers {
             }else if(withdrawAccountBalance < amount){
                return "transferLackofFundsAdmin";
             }
-
             employeeService.transferByAdmin(withdrawAccount,amount,depositAccountNumber);
-
         return "adminAccountView";
     }
-
-
 
 }

@@ -217,26 +217,26 @@ public class Menu {
 
         switch (option){
             case 1:
-                cusService.changeFirstName(customer);
-                break;
+                //cusService.changeFirstName(customer);
+                //break;
             case 2:
-                cusService.changeLastName(customer);
-                break;
+                //cusService.changeLastName(customer);
+                //break;
             case 3:
-                cusService.changeCity(customer);
-                break;
+                //cusService.changeCity(customer);
+                //break;
             case 4:
-                cusService.changeStreet(customer);
-                break;
+                //cusService.changeStreet(customer);
+                //break;
             case 5:
-                cusService.changeZipcode(customer);
-                break;
+                //cusService.changeZipcode(customer);
+                //break;
             case 6:
-                cusService.changeTelephone(customer);
-                break;
+                //cusService.changeTelephone(customer);
+                //break;
             case 7:
-                cusService.changeEmail(customer);
-                break;
+                //cusService.changeEmail(customer);
+                //break;
             case 0:
                 customerAccountView(customer);
                 break;
