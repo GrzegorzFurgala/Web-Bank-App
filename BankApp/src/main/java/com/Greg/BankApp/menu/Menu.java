@@ -378,11 +378,13 @@ public class Menu {
                 break;
                 */
             case 9:
+                /*
                 System.out.println("Enter account number you want withdrow moey from");
                 int accauntNumber4 = sc.nextInt();
                 employeeService.transferByAdmin(accauntNumber4);
                 adminMenu(admin);
                 break;
+                 */
             case 10:
                 mainMenu();
                 break;

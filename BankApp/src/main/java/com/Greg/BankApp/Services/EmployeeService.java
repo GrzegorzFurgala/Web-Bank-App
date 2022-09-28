@@ -143,37 +143,34 @@ public class EmployeeService {
 
 
     }
-    public void transferByAdmin(int accountNumber){
+    public void transferByAdmin(Account withdrawAccount, double amount, int depositAccountNumber){
 
 
 
-
-
-
-        /*
-        Account withdrawAccount = readAccountByAccountNumber(accountNumber);
+        //Account withdrawAccount = readAccountByAccountNumber(accountNumber);
         double withdrawBalance = withdrawAccount.getAccount_balance();
-        System.out.println("Enter amount you want to withdraw");
-        double withdrawAmount = sc.nextDouble();
-
+        //System.out.println("Enter amount you want to withdraw");
+        //double withdrawAmount = sc.nextDouble();
+        /*
         if(withdrawBalance<withdrawAmount){
             System.out.println("You dont have enogh mony");
             System.out.println("Your current balnace is: "+ withdrawBalance);
         }else {
-
-            System.out.println("Enter account number for deposit");
-            int depositAccountNumber = sc.nextInt();
+        */
+            //System.out.println("Enter account number for deposit");
+            //int depositAccountNumber = sc.nextInt();
             Account depositAccount = readAccountByAccountNumber(depositAccountNumber);
+
             double depositAccountBalance = depositAccount.getAccount_balance();
-            double updatedDepositAccountBalance = depositAccountBalance + withdrawAmount;
+            double updatedDepositAccountBalance = depositAccountBalance + amount;
             depositAccount.setAccount_balance(updatedDepositAccountBalance);
             accountService.saveAccount(depositAccount);
 
-            double updatedWitdrawBalance = withdrawBalance - withdrawAmount;
+            double updatedWitdrawBalance = withdrawBalance - amount;
             withdrawAccount.setAccount_balance(updatedWitdrawBalance);
             accountService.saveAccount(withdrawAccount);
-        }
-        */
+        //}
+
     }
 
 

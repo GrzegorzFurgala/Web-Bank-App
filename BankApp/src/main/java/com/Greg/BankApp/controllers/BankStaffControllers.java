@@ -239,11 +239,14 @@ public class BankStaffControllers {
     public String transferbyAdminForm(){
         return "transferByAdminForm";
     }
-
+    /*
     @RequestMapping("/transferNegativeValueAdmin")
     public String transferNegativeValueAdmin(){
         return "transferNegativeValueAdmin";
     }
+    */
+    //@RequestMapping("/transferLackofFundsAdmin")
+
 
 
     @RequestMapping("/transferByAdmin")
@@ -255,11 +258,12 @@ public class BankStaffControllers {
 
             if(amount <=0){
                 return "transferNegativeValueAdmin";
+            }else if(withdrawAccountBalance < amount){
+               return "transferLackofFundsAdmin";
             }
 
-
-
-
+            employeeService.transferByAdmin(withdrawAccount,amount,depositAccountNumber);
+            
         return "adminAccountView";
     }
 
