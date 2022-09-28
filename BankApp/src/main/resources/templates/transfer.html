@@ -29,7 +29,9 @@
     </br></br></br></br>
 
     <form th:action="${'/transferPost'}">
+        <label class="control-label">Kwota</label>
         <input type="number" th:name="kwota"/>
+        <label class="control-label">Konto odbiorcy</label>
         <input type="number" th:name="receiver"/>
         <button type="submit" class="btn btn-default">wyslij przelew</button>
     </form>
