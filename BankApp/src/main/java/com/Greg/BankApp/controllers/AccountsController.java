@@ -42,7 +42,7 @@ public class AccountsController {
             model.addAttribute("approvedAccounts",approvedBankAccounts);
             return "customerApprovedBankAccountList";
         }
-        @GetMapping("/bankAccountView")
+        @RequestMapping("/bankAccountView")
         public String bankAccountView(@RequestParam("accnumb") Integer account_number,
                                       Model model){
 
@@ -70,7 +70,7 @@ public class AccountsController {
         Account account = accountService.findAccountByAccNumber(account_number);
         double balance = account.getAccount_balance();
         accountService.deposit(account_number,balance,kwota);
-        return "redirect:/bankAccountList";
+        return "succesfulOperation";
     }
     @GetMapping("/depositNegativeValue")
     public String depositWrongValue(Model model) {
@@ -79,7 +79,8 @@ public class AccountsController {
     }
     //-------------------WITHDRAW---CONTROLLERs------------------------------------------------
     @RequestMapping("/withdraw")
-    public String withdraw(@RequestParam("accnumb") Integer account_number, Model model){
+    public String withdraw(@RequestParam("accnumb") Integer account_number,
+                           Model model){
         Account account = accountService.findAccountByAccNumber(account_number);
         model.addAttribute("account", account);
         return "withdraw";
@@ -97,8 +98,8 @@ public class AccountsController {
             return "redirect:/lackofFunds";
         }
         accountService.withdraw(account_number,balance,kwota);
-        return "redirect:/bankAccountView";  /// zjebane przekierowanie potrzebuje parametru account number
-    }                                        /////////////////////////////////////////////////////////////////////
+        return "succesfulOperation";
+    }
     @GetMapping("/lackofFunds")
     public String lackofFundsWithdraw(Model model) {
         int accountNumber = (int)model.getAttribute("accountNumber");
@@ -132,7 +133,7 @@ public class AccountsController {
             return "redirect:/transferLackofFunds";
         }
         accountService.transfer(account_number,balance,kwota,receiver);
-        return "redirect:/bankAccountList";
+        return "succesfulOperation";
     }
     @GetMapping("/transferNegativeValue")
     public String transferNegativeValue(Model model){

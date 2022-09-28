@@ -263,7 +263,7 @@ public class BankStaffControllers {
             }
 
             employeeService.transferByAdmin(withdrawAccount,amount,depositAccountNumber);
-            
+
         return "adminAccountView";
     }
 
