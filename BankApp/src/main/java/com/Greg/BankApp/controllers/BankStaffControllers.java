@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import java.util.List;
 
 @Controller
-@SessionAttributes({"login","password"})
+@SessionAttributes({"login","password","position"})
 public class BankStaffControllers {
     @Autowired
     EmployeeService employeeService;
@@ -36,9 +37,10 @@ public class BankStaffControllers {
         model.addAttribute("login",login);
         model.addAttribute("password",password);
         BankEmployee employee = employeeService.logInEmployee(login,password);
-
-        boolean flag = true;
-        model.addAttribute("flag",flag);
+        String position = "employee";
+        boolean employeeFlag = true;
+        model.addAttribute("employeeFlag",employeeFlag);
+        model.addAttribute("position",position);
 
         if(employee == null){
             return "redirect:/wrongPassEmployee";
@@ -85,17 +87,31 @@ public class BankStaffControllers {
         model.addAttribute("account",account);
         return "readIndividualBankAccount";
     }
+
     @RequestMapping("/approveAccountForm")
-    public String approvedAccount(){
+    public String approvedAccount(@RequestParam("flag") String flag,
+                                  Model model){
+
+        System.out.println(flag);
+        model.addAttribute("position",flag);
         return "approveAccountForm";
     }
 
-    @RequestMapping("/approveAccount")
+    @RequestMapping("/approveAccount/{flag}")
     public String approveAccount(@RequestParam("account_number") int accountNumber,
+                                 @PathVariable("flag") String flag,
                                 Model model){
         employeeService.approveCustomerBankAccount(accountNumber);
-        boolean flag = true;
-        model.addAttribute("flag",flag);
+
+        System.out.println(flag);
+
+        if(flag.equals("employee")){
+            boolean employeeFlag = true;
+            model.addAttribute("employeeFlag",employeeFlag);
+        }else if(flag.equals("admin")){
+            boolean adminFlag = true;
+            model.addAttribute("adminFlag",adminFlag);
+        }
         return "staffAccountView";
     }
 
@@ -123,9 +139,12 @@ public class BankStaffControllers {
                                    Model model){
         model.addAttribute("login",login);
         model.addAttribute("password",password);
-        BankAdmin admin = employeeService.logInAdmin(login,password);
-        boolean flag = false;
-        model.addAttribute("flag",flag);
+        BankEmployee admin = employeeService.logInAdmin(login,password);
+        String position = "admin";
+        boolean adminFlag = true;
+        model.addAttribute("adminFlag",adminFlag);
+        model.addAttribute("position",position);
+
 
         if(admin == null){
             return "redirect:/wrongPassAdmin";
@@ -172,36 +191,12 @@ public class BankStaffControllers {
         return "readIndividualBankAccountAdmin";
     }
 
-
-
-
-    @RequestMapping("/approveAccountFormAdmin")
-    public String approvedAccountAdmin(){
-
-
-
-        return "approveAccountFormAdmin";
-    }
-
-    @RequestMapping("/approveAccountAdmin")
-    public String approveAccountAdmin(@RequestParam("account_number") int accountNumber,
-                                      Model model){
-        employeeService.approveCustomerBankAccount(accountNumber);
-        boolean flag = false;
-        model.addAttribute("flag", flag);
-        return "staffAccountView";
-    }
-
-
-
-
     @RequestMapping("/notApprovedAccountsAdmin")
     public String notApprovedAccountsAdmin(Model model){
         List<Account> notApprovedAccounts = employeeService.showNotApprovedAccounts();
         model.addAttribute("notApprovedAccounts",notApprovedAccounts);
         return "notApprovedAccountsAdmin";
     }
-
 
     //--------------------DEPOSIT--------------------------------------------------------------
 

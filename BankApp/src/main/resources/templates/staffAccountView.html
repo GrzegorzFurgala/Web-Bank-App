@@ -12,22 +12,25 @@
 <body>
 <div class="container">
 
-    <div th:if="${flag == true}">
+    <div th:if="${employeeFlag == true}">
 
         <p><a href="/readAllCustomerAccount">Pokaz dane wszystkich klientow</a></p>
         <p><a href="/readIndividualCustomerForm">Pokaz dane pojedynczego klienta</a></p>
         <p><a href="/readAllBankAccounts">Pokaz wszystkie konta bankopwe</a></p>
         <p><a href="/readIndividualBankForm">Znajdz konto bankowe po numerze</a></p>
-        <p><a href="/approveAccountForm">zatwierdz konto</a></p>
+        <p><a th:href="${'/approveAccountForm?flag='+position}">zatwierdz konto</a></p>
         <p><a href="/notApprovedAccounts">Pokaz liste kont czekajacych na potwierdzenie</a></p>
         <p><a href="/mainMenu">powrot do menu gownego</a></p>
+
+
+
     </div>
-    <div th:if="${flag == false}">
+    <div th:if="${adminFlag == true}">
         <p><a href="/readAllCustomerAccountAdmin">Pokaz dane wszystkich klientow</a></p>
         <p><a href="/readIndividualCustomerFormAdmin">Pokaz dane pojedynczego klienta</a></p>
         <p><a href="/readAllBankAccountsAdmin">Pokaz wszystkie konta bankopwe</a></p>
         <p><a href="/readIndividualBankFormAdmin">Pokaz pojedyncze konto</a></p>
-        <p><a href="/approveAccountFormAdmin">zatwierdz konto</a></p>
+        <p><a th:href="${'/approveAccountForm?flag='+position}">zatwierdz konto</a></p>
         <p><a href="/notApprovedAccountsAdmin">Pokaz liste kont czekajacych na potwierdzenie</a></p>
         <p>operations on accounts</p>
         <p><a href="/depositByAdminForm">wplac</a></p>

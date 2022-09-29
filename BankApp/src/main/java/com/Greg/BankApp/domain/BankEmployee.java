@@ -12,14 +12,16 @@ public class BankEmployee{
     String lastname;
     String login;
     String password;
+    String position;
 
     public BankEmployee(){}
 
-    public BankEmployee(String firstname, String lastname, String login, String password) {
+    public BankEmployee(String firstname, String lastname, String login, String password,String position) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.login = login;
         this.password = password;
+        this.position = position;
     }
 
     public String getFirstname() {
@@ -54,6 +56,13 @@ public class BankEmployee{
         this.password = password;
     }
 
+    public String getPossition() {
+        return position;
+    }
+
+    public void setPossition(String possition) {
+        this.position = possition;
+    }
 
     @Override
     public String toString() {
@@ -63,6 +72,7 @@ public class BankEmployee{
                 ", lastname='" + lastname + '\'' +
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
+                ", possition='" + position + '\'' +
                 '}';
     }
 }

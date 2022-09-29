@@ -13,7 +13,7 @@ public class EmployeeService {
     EmployeeRepository employeeRepository;
     @Autowired
     AccountService accountService;
-    Scanner sc = new Scanner(System.in);
+
 
     public BankEmployee createBankEmployee(){
         // TODO: 28/09/2022
@@ -24,6 +24,7 @@ public class EmployeeService {
         BankEmployee emp = employeeRepository.updateEmployee(bankEmployee);
         return emp;
     }
+    /*
     public BankAdmin createBankAdmin(){
         // TODO: 28/09/2022
         return null;
@@ -32,12 +33,15 @@ public class EmployeeService {
         BankAdmin emp = employeeRepository.updateEmployee(bankAdmin);
         return emp;
     }
+     */
     public void deleteEmployeeById(int idEmployee){
         employeeRepository.deleteEmployeeById(idEmployee);
     }
+    /*
     public void deleteAdminById(int idAdmin){
         employeeRepository.deleteAdminById(idAdmin);
     }
+    */
 
     //----------------------Operations--on--accounts-------------------------------//
 
@@ -60,14 +64,24 @@ public class EmployeeService {
     }
 
     public BankEmployee logInEmployee(String login, String password) {
-        BankEmployee employee = employeeRepository.logInEmployee(login,password);
+        String position = "employee";
+        BankEmployee employee = employeeRepository.logInEmployee(login,password,position);
         return employee;
     }
 
+    public BankEmployee logInAdmin(String login, String password) {
+        String position = "admin";
+        BankEmployee employee = employeeRepository.logInEmployee(login,password,position);
+        return employee;
+    }
+
+
+    /*
     public BankAdmin logInAdmin(String login, String password) {
         BankAdmin admin = employeeRepository.logInAdmin(login,password);
         return admin;
     }
+     */
     public void approveCustomerBankAccount(int accountNumber){
         employeeRepository.approveCustomerAccount(accountNumber);
     }

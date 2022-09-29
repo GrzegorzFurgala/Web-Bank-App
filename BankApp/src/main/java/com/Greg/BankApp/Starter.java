@@ -5,6 +5,7 @@ import com.Greg.BankApp.Services.AccountService;
 import com.Greg.BankApp.Services.CustomerService;
 import com.Greg.BankApp.Services.EmployeeService;
 import com.Greg.BankApp.domain.Account;
+import com.Greg.BankApp.domain.BankEmployee;
 import com.Greg.BankApp.menu.Menu;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,24 +32,11 @@ public class Starter implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        /*
-        Customer cus = service.createCustomer();
-       Account acc = accountService.createNewAccount();
-       Account acc2 = accountService.createNewAccount();
-        cus.addAccountToTheList(acc);
-        cus.addAccountToTheList(acc2);
-        service.saveCustomer(cus);
-        */
+
 
         Logger logger = LoggerFactory.getLogger(Starter.class);
-
-        //System.out.println(accRepo.readAllAcceptedAccountsByOwnerId("GR123"));
-
         menu.mainMenu();
 
-
-
-        //employeeService.approveCustomerBankAccount(56);
 
 
     }

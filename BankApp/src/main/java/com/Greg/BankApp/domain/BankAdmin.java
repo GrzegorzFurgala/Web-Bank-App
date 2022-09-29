@@ -2,8 +2,8 @@ package com.Greg.BankApp.domain;
 
 import javax.persistence.*;
 
-@Entity
-@Table(name = "bank_admins")
+//@Entity
+//@Table(name = "bank_admins")
 public class BankAdmin {
 
     @Id

@@ -18,11 +18,12 @@ public class EmployeeRepository {
         em.getTransaction().commit();
     }
 
-    public BankEmployee logInEmployee(String login, String password){
+    public BankEmployee logInEmployee(String login, String password,String position){
             try {
-                TypedQuery<BankEmployee> employee = em.createQuery("Select e from BankEmployee e where e.login=:login and e.password=:password", BankEmployee.class);
+                TypedQuery<BankEmployee> employee = em.createQuery("Select e from BankEmployee e where e.login=:login and e.password=:password and e.position=:position", BankEmployee.class);
                 employee.setParameter("login", login);
                 employee.setParameter("password", password);
+                employee.setParameter("position", position);
                 return employee.getSingleResult();
             }catch (NoResultException e){
                 System.out.println("podany login lub haslo sa nieprawidlowe, sprobuj ponownie");
@@ -110,6 +111,24 @@ public class EmployeeRepository {
         em.getTransaction().commit();
     }
 
+    public BankEmployee logInAdmin(String login, String password,String position){
+        try {
+            TypedQuery<BankEmployee> employee = em.createQuery("Select e from BankEmployee e where e.login=:login and e.password=:password and e.position=:position", BankEmployee.class);
+            employee.setParameter("login", login);
+            employee.setParameter("password", password);
+            employee.setParameter("position", position);
+            return employee.getSingleResult();
+        }catch (NoResultException e){
+            System.out.println("podany login lub haslo sa nieprawidlowe, sprobuj ponownie");
+        }
+        return null;
+    }
+
+
+
+
+
+    /*
     public BankAdmin logInAdmin(String login, String password) {
         try {
             TypedQuery<BankAdmin> admin = em.createQuery("select a from BankAdmin a where a.login=:loginAdmin and a.password=:pass", BankAdmin.class);
@@ -122,7 +141,7 @@ public class EmployeeRepository {
         }
         return null;
     }
-
+    */
     public List<Account> showNotApprovedAccounts(){
         TypedQuery<Account> notApprovedAccout = em.createQuery("select a from Account a where a.account_approved = false",Account.class);
         return notApprovedAccout.getResultList();

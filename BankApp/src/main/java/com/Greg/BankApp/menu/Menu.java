@@ -69,6 +69,7 @@ public class Menu {
                         employeeMenu(employee);
                         break;
                     case 2:
+                        /*
                         System.out.println("Enter Login");
                         login = sc.nextLine();
                         System.out.println(("Enter password"));
@@ -76,6 +77,7 @@ public class Menu {
                         BankAdmin admin = employeeService.logInAdmin(login,password);
                         adminMenu(admin);
                         break;
+                         */
                     case 3:
                         mainMenu();
                         break;
