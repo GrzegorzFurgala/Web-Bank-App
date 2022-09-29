@@ -86,22 +86,16 @@ public class AccountsController {
         int account_number = (int)model.getAttribute("accountNumber");
         Account account = accountService.findAccountByAccNumber(account_number);
         double balance = account.getAccount_balance();
+        model.addAttribute("kwota",kwota);
+        model.addAttribute("balance",balance);
 
         if(kwota<=0){
-            return "redirect:/withdrawNegativeValue";
+            return "withdrawErrorMessages";
         }else if(balance<kwota){
-            return "redirect:/lackofFunds";
+            return "withdrawErrorMessages";
         }
         accountService.withdraw(account_number,balance,kwota);
         return "succesfulOperation";
-    }
-    @GetMapping("/lackofFunds")
-    public String lackofFundsWithdraw(Model model) {
-        return "lackofFunds";
-    }
-    @GetMapping("withdrawNegativeValue")
-    public String withdrawNegativeValue(Model model){
-        return "withdrawNegativeValue";
     }
 
     //-------------------Transfer---CONTROLLERS------------------------------------------------
@@ -113,29 +107,23 @@ public class AccountsController {
         return "transfer";
     }
     @GetMapping("/transferPost")
-    public String transferPost(@RequestParam("kwota") Double kwota,
+    public String transferPost(@RequestParam("kwota") double kwota,
                                @RequestParam("receiver") Integer receiver,
                                Model model) {
 
         int account_number = (int)model.getAttribute("accountNumber");
         Account account = accountService.findAccountByAccNumber(account_number);
         double balance = account.getAccount_balance();
-
+        model.addAttribute("kwota",kwota);
+        model.addAttribute("balance",balance);
+        System.out.println(kwota);
         if(kwota <= 0){
-            return "redirect:/transferNegativeValue";
+            return "transferErrorMessages";
         }else if(balance < kwota){
-            return "redirect:/transferLackofFunds";
+            return "transferErrorMessages";
         }
         accountService.transfer(account_number,balance,kwota,receiver);
         return "succesfulOperation";
-    }
-    @GetMapping("/transferNegativeValue")
-    public String transferNegativeValue(Model model){
-       return "transferNegativeValue";
-    }
-    @GetMapping("transferLackofFunds")
-    public String transferLackofFunds(Model model){
-         return "transferLackofFunds";
     }
 
     //-------------------Applay--for--new--Account----------------------

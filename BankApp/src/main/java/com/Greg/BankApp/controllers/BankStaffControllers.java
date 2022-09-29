@@ -5,6 +5,7 @@ import com.Greg.BankApp.domain.BankAdmin;
 import com.Greg.BankApp.domain.BankEmployee;
 import com.Greg.BankApp.domain.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,15 +33,17 @@ public class BankStaffControllers {
     public String employeeAccountView(@RequestParam("login") String login,
                                       @RequestParam("password") String password,
                                       Model model){
-
         model.addAttribute("login",login);
         model.addAttribute("password",password);
         BankEmployee employee = employeeService.logInEmployee(login,password);
 
+        boolean flag = true;
+        model.addAttribute("flag",flag);
+
         if(employee == null){
             return "redirect:/wrongPassEmployee";
         }
-        return "employeeAccountView";
+        return "staffAccountView";
     }
 
     @RequestMapping("/readAllCustomerAccount")
@@ -88,9 +91,12 @@ public class BankStaffControllers {
     }
 
     @RequestMapping("/approveAccount")
-    public String approveAccount(@RequestParam("account_number") int accountNumber){
+    public String approveAccount(@RequestParam("account_number") int accountNumber,
+                                Model model){
         employeeService.approveCustomerBankAccount(accountNumber);
-        return "employeeAccountView";
+        boolean flag = true;
+        model.addAttribute("flag",flag);
+        return "staffAccountView";
     }
 
     @RequestMapping("/notApprovedAccounts")
@@ -118,10 +124,13 @@ public class BankStaffControllers {
         model.addAttribute("login",login);
         model.addAttribute("password",password);
         BankAdmin admin = employeeService.logInAdmin(login,password);
+        boolean flag = false;
+        model.addAttribute("flag",flag);
+
         if(admin == null){
             return "redirect:/wrongPassAdmin";
         }
-        return "adminAccountView";
+        return "staffAccountView";
     }
 
     @RequestMapping("/readAllCustomerAccountAdmin")
@@ -162,15 +171,30 @@ public class BankStaffControllers {
         model.addAttribute("account",account);
         return "readIndividualBankAccountAdmin";
     }
+
+
+
+
     @RequestMapping("/approveAccountFormAdmin")
     public String approvedAccountAdmin(){
+
+
+
         return "approveAccountFormAdmin";
     }
+
     @RequestMapping("/approveAccountAdmin")
-    public String approveAccountAdmin(@RequestParam("account_number") int accountNumber){
+    public String approveAccountAdmin(@RequestParam("account_number") int accountNumber,
+                                      Model model){
         employeeService.approveCustomerBankAccount(accountNumber);
-        return "adminAccountView";
+        boolean flag = false;
+        model.addAttribute("flag", flag);
+        return "staffAccountView";
     }
+
+
+
+
     @RequestMapping("/notApprovedAccountsAdmin")
     public String notApprovedAccountsAdmin(Model model){
         List<Account> notApprovedAccounts = employeeService.showNotApprovedAccounts();
@@ -208,27 +232,22 @@ public class BankStaffControllers {
         return "withdrawByAdminForm";
     }
 
-    @RequestMapping("/withdrawNegativeValueAdmin")
-    public String withdrawNegativeValueAdmin(){
-        return "withdrawNegativeValueAdmin";
-    }
-
-    @RequestMapping("/lackofFundsWithdrawAdmin")
-    public String lackofFundsWithdrawAdmin(){
-        return "lackofFundsWithdrawAdmin";
-    }
 
     @RequestMapping("/withdrawByAdmin")
     public String withdrawByAdmin(@RequestParam("accountNumber") int accountNumber,
-                                  @RequestParam("amount")  double amount){
+                                  @RequestParam("amount")  double amount,
+                                  Model model){
 
         Account account = employeeService.readAccountByAccountNumber(accountNumber);
         double balance = account.getAccount_balance();
         double newBalance = balance - amount;
+        model.addAttribute("amount",amount);
+        model.addAttribute("balance",balance);
+
             if(amount <= 0){
-                return "redirect:/withdrawNegativeValueAdmin";
+                return "withdrawErrorMessagesAdmin";
             }else if(newBalance < 0){
-                return "redirect:/lackofFundsWithdrawAdmin";
+                return "withdrawErrorMessagesAdmin";
             }
         employeeService.withdrawByAdmin(account, newBalance);
         return "adminAccountView";
@@ -244,15 +263,18 @@ public class BankStaffControllers {
     @RequestMapping("/transferByAdmin")
     public String transferbyAdmin(@RequestParam("withdrawAccountNumber") int withdrawAccountNumber,
                                   @RequestParam("amount") int amount,
-                                  @RequestParam("depositAccountNumber") int depositAccountNumber){
+                                  @RequestParam("depositAccountNumber") int depositAccountNumber,
+                                  Model model){
 
         Account withdrawAccount = employeeService.readAccountByAccountNumber(withdrawAccountNumber);
         double withdrawAccountBalance = withdrawAccount.getAccount_balance();
+        model.addAttribute("withdrawAccountBalance",withdrawAccountBalance);
+        model.addAttribute("amount",amount);
 
             if(amount <=0){
-                return "transferNegativeValueAdmin";
+                return "transferErrorMessagesAdmin";
             }else if(withdrawAccountBalance < amount){
-               return "transferLackofFundsAdmin";
+                return "transferErrorMessagesAdmin";
             }
             employeeService.transferByAdmin(withdrawAccount,amount,depositAccountNumber);
         return "adminAccountView";

@@ -18,18 +18,17 @@
         </tr>
         </thead>
         <tbody th:each="konto : ${approvedAccounts}">
-        <tr>
-            <td th:text="${konto.account_number}"></td>
-            <td th:text="${konto.account_holder_first_name}"></td>
-            <td th:text="${konto.account_holder_last_name}"></td>
-            <td th:text="${konto.account_balance}"></td>
-            <td th:text="${konto.owner_id}"></td>
-            <td><a th:href="${'/bankAccountView?accnumb='+konto.account_number}">Wybierz</a></td>
-
-        </tr>
-
+            <tr>
+                <td th:text="${konto.account_number}"></td>
+                <td th:text="${konto.account_holder_first_name}"></td>
+                <td th:text="${konto.account_holder_last_name}"></td>
+                <td th:text="${konto.account_balance}"></td>
+                <td th:text="${konto.owner_id}"></td>
+                <td><a th:href="${'/bankAccountView?accnumb='+konto.account_number}">Wybierz</a></td>
+            </tr>
         </tbody>
     </table>
+    <p><a th:href="${'/customerAccountView?login='+login+'&password='+password}">poprzednie menue</a></p>
 </div>
 </body>
 </html>
