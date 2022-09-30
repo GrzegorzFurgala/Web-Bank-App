@@ -11,25 +11,48 @@
 </head>
 <body>
 <div class="container">
-    <table class="table">
-        <thead>
-        <tr>
-            <td>Numer Konta</td><td>Imie</td><td>Nazwisko</td><td>Stan konta</td><td>Konto Potwierdzone</td><td>Numer Klienta</td>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td th:text="${account.account_number}"></td>
-            <td th:text="${account.account_holder_first_name}"></td>
-            <td th:text="${account.account_holder_last_name}"></td>
-            <td th:text="${account.account_balance}"></td>
-            <td th:text="${account.account_approved}"></td>
-            <td th:text="${account.owner_id}"></td>
 
-        </tr>
-        </tbody>
-    </table>
-    <p><a th:href="${'/employeeAccountView?login='+login+'&password='+password}">Powrot do menu</a></p>
+    <div th:if="${position.equals('employee')}">
+        <table class="table">
+            <thead>
+            <tr>
+                <td>Numer Konta</td><td>Imie</td><td>Nazwisko</td><td>Stan konta</td><td>Konto Potwierdzone</td><td>Numer Klienta</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td th:text="${account.account_number}"></td>
+                <td th:text="${account.account_holder_first_name}"></td>
+                <td th:text="${account.account_holder_last_name}"></td>
+                <td th:text="${account.account_balance}"></td>
+                <td th:text="${account.account_approved}"></td>
+                <td th:text="${account.owner_id}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <p><a th:href="${'/employeeAccountView?login='+login+'&password='+password}">Powrot do menu</a></p>
+    </div>
+
+    <div th:if="${position.equals('admin')}">
+        <table class="table">
+            <thead>
+            <tr>
+                <td>Numer Konta</td><td>Imie</td><td>Nazwisko</td><td>Stan konta</td><td>Konto Potwierdzone</td><td>Numer Klienta</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td th:text="${account.account_number}"></td>
+                <td th:text="${account.account_holder_first_name}"></td>
+                <td th:text="${account.account_holder_last_name}"></td>
+                <td th:text="${account.account_balance}"></td>
+                <td th:text="${account.account_approved}"></td>
+                <td th:text="${account.owner_id}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <p><a th:href="${'/adminAccountView?login='+login+'&password='+password}">Powrot do menu</a></p>
+    </div>
 
 </div>
 </body>

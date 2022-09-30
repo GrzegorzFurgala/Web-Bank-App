@@ -76,6 +76,7 @@ public class BankStaffControllers {
     }
 
 
+
     @RequestMapping("/readIndividualBankForm")
     public String readIndividualBankForm(){
         return "readIndividualBankForm";
@@ -88,6 +89,10 @@ public class BankStaffControllers {
         model.addAttribute("account",account);
         return "readIndividualBankAccount";
     }
+
+
+
+
 
     @RequestMapping("/approveAccountForm")
     public String approvedAccount(@RequestParam("position") String position,
@@ -145,20 +150,8 @@ public class BankStaffControllers {
         }
         return "staffAccountView";
     }
+
     
-
-    @RequestMapping("/readIndividualBankFormAdmin")
-    public String readIndividualBankFormAdmin(){
-        return "readIndividualBankFormAdmin";
-    }
-    @RequestMapping("/readIndividualBankAccountAdmin")
-    public String readIndividualBankAccountAdmin(@RequestParam ("account_number") int accountNumber,
-                                            Model model){
-        Account account = employeeService.readAccountByAccountNumber(accountNumber);
-        model.addAttribute("account",account);
-        return "readIndividualBankAccountAdmin";
-    }
-
     @RequestMapping("/notApprovedAccountsAdmin")
     public String notApprovedAccountsAdmin(Model model){
         List<Account> notApprovedAccounts = employeeService.showNotApprovedAccounts();
