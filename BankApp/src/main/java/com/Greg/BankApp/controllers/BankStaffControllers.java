@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import java.util.List;
 
 @Controller
-@SessionAttributes({"login","password","position"})
+@SessionAttributes({"login","password","position","employee"})
 public class BankStaffControllers {
     @Autowired
     EmployeeService employeeService;
@@ -37,8 +37,8 @@ public class BankStaffControllers {
         model.addAttribute("login",login);
         model.addAttribute("password",password);
         BankEmployee employee = employeeService.logInEmployee(login,password);
+        model.addAttribute("employee", employee);
         String position = employee.getPosition();
-
         model.addAttribute("position",position);
 
         if(employee == null){
@@ -142,13 +142,6 @@ public class BankStaffControllers {
             return "redirect:/wrongPassAdmin";
         }
         return "staffAccountView";
-    }
-
-    @RequestMapping("/readAllCustomerAccountAdmin")
-    public String allCustomersAdmin(Model model){
-        List<Customer> allCustomerList = employeeService.readAllCustomers();
-        model.addAttribute("allCustomerList",allCustomerList);
-        return "readAllCustomerAccountAdmin";
     }
 
     @RequestMapping("/readIndividualCustomerFormAdmin")

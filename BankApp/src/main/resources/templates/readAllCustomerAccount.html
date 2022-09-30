@@ -11,14 +11,40 @@
 </head>
 <body>
 <div class="container">
-    <table class="table">
-        <thead>
-        <tr>
-            <td>Id</td><td>Imie</td><td>Nazwisko</td><td>Miasto</td><td>Ulica</td>
-            <td>Kod pocztowy</td><td>E-mail</td><td>Telefon</td>
-        </tr>
-        </thead>
-        <tbody th:each="customer : ${allCustomerList}">
+
+   <div th:if="${position.equals('employee')}">
+        <table class="table">
+            <thead>
+            <tr>
+                <td>Id</td><td>Imie</td><td>Nazwisko</td><td>Miasto</td><td>Ulica</td>
+                <td>Kod pocztowy</td><td>E-mail</td><td>Telefon</td>
+            </tr>
+            </thead>
+            <tbody th:each="customer : ${allCustomerList}">
+                <tr>
+                    <td th:text="${customer.idnumber}"></td>
+                    <td th:text="${customer.firstname}"></td>
+                    <td th:text="${customer.lastname}"></td>
+                    <td th:text="${customer.city}"></td>
+                    <td th:text="${customer.street}"></td>
+                    <td th:text="${customer.zipcode}"></td>
+                    <td th:text="${customer.email}"></td>
+                    <td th:text="${customer.telephone}"></td>
+                </tr>
+            </tbody>
+        </table>
+        <p><a th:href="${'/employeeAccountView?login='+login+'&password='+password}">Powrot do menu</a></p>
+   </div>
+
+    <div th:if="${position.equals('admin')}">
+        <table class="table">
+            <thead>
+            <tr>
+                <td>Id</td><td>Imie</td><td>Nazwisko</td><td>Miasto</td><td>Ulica</td>
+                <td>Kod pocztowy</td><td>E-mail</td><td>Telefon</td>
+            </tr>
+            </thead>
+            <tbody th:each="customer : ${allCustomerList}">
             <tr>
                 <td th:text="${customer.idnumber}"></td>
                 <td th:text="${customer.firstname}"></td>
@@ -29,9 +55,16 @@
                 <td th:text="${customer.email}"></td>
                 <td th:text="${customer.telephone}"></td>
             </tr>
-        </tbody>
-    </table>
-    <p><a th:href="${'/employeeAccountView?login='+login+'&password='+password}">Powrot do menu</a></p>
+            </tbody>
+        </table>
+        <p><a th:href="${'/adminAccountView?login='+login+'&password='+password}">Powrot do menu</a></p>
+    </div>
+
+
+
+
+
+
 
 </div>
 </body>
