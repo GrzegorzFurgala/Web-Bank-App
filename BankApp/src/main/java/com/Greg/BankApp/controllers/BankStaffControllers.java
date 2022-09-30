@@ -74,6 +74,8 @@ public class BankStaffControllers {
         model.addAttribute("allBankAccounts", allBankAccountList);
         return "readAllBankAccounts";
     }
+
+
     @RequestMapping("/readIndividualBankForm")
     public String readIndividualBankForm(){
         return "readIndividualBankForm";
@@ -143,26 +145,7 @@ public class BankStaffControllers {
         }
         return "staffAccountView";
     }
-
-    @RequestMapping("/readIndividualCustomerFormAdmin")
-    public String readIndividualCustomerAccountAdmin(){
-        return"readIndividualCustomerFormAdmin";
-    }
-
-    @RequestMapping("/readIndividualCustomerAdmin")
-    public String readIndividualCustomerAdmin(@RequestParam ("idNumber") String idnumber,
-                                              Model model){
-            Customer customer = employeeService.readCustomerById(idnumber);
-            model.addAttribute("customer", customer);
-        return "readIndividualCustomerAdmin";
-    }
-
-    @RequestMapping("/readAllBankAccountsAdmin")
-    public String allBankAccountsAdmin(Model model) {
-        List<Account> allBankAccountList = employeeService.readAllAccounts();
-        model.addAttribute("allBankAccounts", allBankAccountList);
-        return "readAllBankAccountsAdmin";
-    }
+    
 
     @RequestMapping("/readIndividualBankFormAdmin")
     public String readIndividualBankFormAdmin(){
