@@ -56,12 +56,12 @@ public class BankEmployee{
         this.password = password;
     }
 
-    public String getPossition() {
+    public String getPosition() {
         return position;
     }
 
-    public void setPossition(String possition) {
-        this.position = possition;
+    public void setPosition(String position) {
+        this.position = position;
     }
 
     @Override

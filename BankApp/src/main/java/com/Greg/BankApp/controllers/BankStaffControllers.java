@@ -37,9 +37,8 @@ public class BankStaffControllers {
         model.addAttribute("login",login);
         model.addAttribute("password",password);
         BankEmployee employee = employeeService.logInEmployee(login,password);
-        String position = "employee";
-        boolean employeeFlag = true;
-        model.addAttribute("employeeFlag",employeeFlag);
+        String position = employee.getPosition();
+
         model.addAttribute("position",position);
 
         if(employee == null){
@@ -89,28 +88,23 @@ public class BankStaffControllers {
     }
 
     @RequestMapping("/approveAccountForm")
-    public String approvedAccount(@RequestParam("flag") String flag,
+    public String approvedAccount(@RequestParam("position") String position,
                                   Model model){
 
-        System.out.println(flag);
-        model.addAttribute("position",flag);
+        model.addAttribute("position",position);
         return "approveAccountForm";
     }
 
-    @RequestMapping("/approveAccount/{flag}")
+    @RequestMapping("/approveAccount/{position}")
     public String approveAccount(@RequestParam("account_number") int accountNumber,
-                                 @PathVariable("flag") String flag,
+                                 @PathVariable("position") String position,
                                 Model model){
         employeeService.approveCustomerBankAccount(accountNumber);
 
-        System.out.println(flag);
-
-        if(flag.equals("employee")){
-            boolean employeeFlag = true;
-            model.addAttribute("employeeFlag",employeeFlag);
-        }else if(flag.equals("admin")){
-            boolean adminFlag = true;
-            model.addAttribute("adminFlag",adminFlag);
+        if(position.equals("employee")){
+            model.addAttribute("position",position);
+        }else if(position.equals("admin")){
+            model.addAttribute("position",position);
         }
         return "staffAccountView";
     }
@@ -140,9 +134,7 @@ public class BankStaffControllers {
         model.addAttribute("login",login);
         model.addAttribute("password",password);
         BankEmployee admin = employeeService.logInAdmin(login,password);
-        String position = "admin";
-        boolean adminFlag = true;
-        model.addAttribute("adminFlag",adminFlag);
+        String position = admin.getPosition();
         model.addAttribute("position",position);
 
 
