@@ -90,10 +90,6 @@ public class BankStaffControllers {
         return "readIndividualBankAccount";
     }
 
-
-
-
-
     @RequestMapping("/approveAccountForm")
     public String approvedAccount(@RequestParam("position") String position,
                                   Model model){
@@ -150,15 +146,7 @@ public class BankStaffControllers {
         }
         return "staffAccountView";
     }
-
     
-    @RequestMapping("/notApprovedAccountsAdmin")
-    public String notApprovedAccountsAdmin(Model model){
-        List<Account> notApprovedAccounts = employeeService.showNotApprovedAccounts();
-        model.addAttribute("notApprovedAccounts",notApprovedAccounts);
-        return "notApprovedAccountsAdmin";
-    }
-
     //--------------------DEPOSIT--------------------------------------------------------------
 
     @RequestMapping("/depositByAdminForm")
