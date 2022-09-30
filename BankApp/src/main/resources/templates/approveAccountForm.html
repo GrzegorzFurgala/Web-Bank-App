@@ -12,21 +12,16 @@
 <div class="container">
 
 
-
-  <form th:action="${'/approveAccount/'+position}">
+  <form th:action="${'/approveAccount'}">
 
     <div>Podaj numer knota bankowego</div>
     </br></br>
-    <div class="form-group">
-      <label class="control-label">numer konta</label>
-      <input type="text" class="form-control" th:name="account_number"/>
-    </div>
+      <div class="form-group">
+        <label class="control-label">numer konta</label>
+        <input type="text" class="form-control" th:name="account_number"/>
+      </div>
     <button type="submit" class="btn btn-default">zatwierdz konto</button>
   </form>
-
-
-
-
 
 
 

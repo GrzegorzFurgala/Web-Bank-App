@@ -91,24 +91,13 @@ public class BankStaffControllers {
     }
 
     @RequestMapping("/approveAccountForm")
-    public String approvedAccount(@RequestParam("position") String position,
-                                  Model model){
-
-        model.addAttribute("position",position);
+    public String approvedAccount(){
         return "approveAccountForm";
     }
 
-    @RequestMapping("/approveAccount/{position}")
-    public String approveAccount(@RequestParam("account_number") int accountNumber,
-                                 @PathVariable("position") String position,
-                                Model model){
+    @RequestMapping("/approveAccount")
+    public String approveAccount(@RequestParam("account_number") int accountNumber){
         employeeService.approveCustomerBankAccount(accountNumber);
-
-        if(position.equals("employee")){
-            model.addAttribute("position",position);
-        }else if(position.equals("admin")){
-            model.addAttribute("position",position);
-        }
         return "staffAccountView";
     }
 
@@ -146,7 +135,7 @@ public class BankStaffControllers {
         }
         return "staffAccountView";
     }
-    
+
     //--------------------DEPOSIT--------------------------------------------------------------
 
     @RequestMapping("/depositByAdminForm")
