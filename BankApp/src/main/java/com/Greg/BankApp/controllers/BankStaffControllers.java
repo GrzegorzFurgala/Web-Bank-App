@@ -25,10 +25,6 @@ public class BankStaffControllers {
     public String employeeCredentialsForm(){
         return "employeeCredentialsForm";
     }
-    @RequestMapping("/wrongPassEmployee")
-    public String wrongPassEmployee(){
-        return "wrongPassEmployee";
-    }
 
     @RequestMapping("/employeeAccountView")
     public String employeeAccountView(@RequestParam("login") String login,
@@ -37,13 +33,17 @@ public class BankStaffControllers {
         model.addAttribute("login",login);
         model.addAttribute("password",password);
         BankEmployee employee = employeeService.logInEmployee(login,password);
+
+        if(employee == null){
+            return "wrongPassEmployee";
+        }
+        // mozna wprowadzic tu i admin flage dzieki ktorej po zlym wprowadzeniu hasla ten sam widok "wrongPassEmployee,
+        // bedzie kierowal albo do formularza admina albo Employee, moze nawet potem do formularza klienta
+
         model.addAttribute("employee", employee);
         String position = employee.getPosition();
         model.addAttribute("position",position);
 
-        if(employee == null){
-            return "redirect:/wrongPassEmployee";
-        }
         return "staffAccountView";
     }
 
@@ -75,13 +75,10 @@ public class BankStaffControllers {
         return "readAllBankAccounts";
     }
 
-
-
     @RequestMapping("/readIndividualBankForm")
     public String readIndividualBankForm(){
         return "readIndividualBankForm";
     }
-
     @RequestMapping("/readIndividualBankAccount")
     public String readIndividualBankAccount(@RequestParam ("account_number") int accountNumber,
                                          Model model){
@@ -114,11 +111,6 @@ public class BankStaffControllers {
         return "adminCredentialsForm";
     }
 
-    @RequestMapping("/wrongPassAdmin")
-    public String wrongPassAdmin(){
-        return "wrongPassAdmin";
-    }
-
     @RequestMapping("/adminAccountView")
     public String AdminAccountView(@RequestParam("login") String login,
                                    @RequestParam("password") String password,
@@ -126,13 +118,15 @@ public class BankStaffControllers {
         model.addAttribute("login",login);
         model.addAttribute("password",password);
         BankEmployee admin = employeeService.logInAdmin(login,password);
+
+
+        if(admin == null){
+            return "wrongPassAdmin";
+        }
         String position = admin.getPosition();
         model.addAttribute("position",position);
 
 
-        if(admin == null){
-            return "redirect:/wrongPassAdmin";
-        }
         return "staffAccountView";
     }
 
