@@ -56,10 +56,14 @@ public class AccountsController {
         return "deposit";
     }
     @GetMapping("/depositPost")
-    public String depositPost(@RequestParam("kwota") double kwota, Model model) {
+    public String depositPost(@RequestParam("kwota") double kwota,
+                              Model model) {
+
+        String operation = "deposit";
+        model.addAttribute("operation",operation);
 
             if(kwota <= 0){
-                return "redirect:/depositNegativeValue";
+                return "errorMessagesCustomer";
             }
         int account_number = (int)model.getAttribute("accountNumber");
         Account account = accountService.findAccountByAccNumber(account_number);
@@ -67,11 +71,7 @@ public class AccountsController {
         accountService.deposit(account_number,balance,kwota);
         return "succesfulOperation";
     }
-    @GetMapping("/depositNegativeValue")
-    public String depositWrongValue(Model model) {
-            int accountNumber = (int)model.getAttribute("accountNumber");
-        return "depositNegativeValue";
-    }
+
     //-------------------WITHDRAW---CONTROLLERs------------------------------------------------
     @RequestMapping("/withdraw")
     public String withdraw(@RequestParam("accnumb") Integer account_number,
@@ -89,10 +89,13 @@ public class AccountsController {
         model.addAttribute("kwota",kwota);
         model.addAttribute("balance",balance);
 
+        String operation = "withdraw";
+        model.addAttribute("operation",operation);
+
         if(kwota<=0){
-            return "withdrawErrorMessages";
+            return "errorMessagesCustomer";
         }else if(balance<kwota){
-            return "withdrawErrorMessages";
+            return "errorMessagesCustomer";
         }
         accountService.withdraw(account_number,balance,kwota);
         return "succesfulOperation";
@@ -116,11 +119,15 @@ public class AccountsController {
         double balance = account.getAccount_balance();
         model.addAttribute("kwota",kwota);
         model.addAttribute("balance",balance);
-        System.out.println(kwota);
+
+        String operation = "transfer";
+        model.addAttribute("operation",operation);
+
+
         if(kwota <= 0){
-            return "transferErrorMessages";
+            return "errorMessagesCustomer";
         }else if(balance < kwota){
-            return "transferErrorMessages";
+            return "errorMessagesCustomer";
         }
         accountService.transfer(account_number,balance,kwota,receiver);
         return "succesfulOperation";
