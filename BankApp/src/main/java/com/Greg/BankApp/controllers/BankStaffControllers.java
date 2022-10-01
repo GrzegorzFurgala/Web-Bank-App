@@ -21,6 +21,7 @@ public class BankStaffControllers {
     @Autowired
     EmployeeService employeeService;
 
+
     @RequestMapping("/employeeCredentialsForm/{flag}")
     public String employeeCredentialsForm(@PathVariable("flag") String flag,
                                           Model model){
@@ -35,17 +36,17 @@ public class BankStaffControllers {
         model.addAttribute("login",login);
         model.addAttribute("password",password);
         String position = (String)model.getAttribute("flag");
-        System.out.println(position);
-        BankEmployee employee = employeeService.logInEmployee(login,password,position );
-        System.out.println(employee);
 
-        if(employee == null){
+
+        BankEmployee employee = employeeService.logInEmployee(login, password, position);
+
+        if (employee == null) {
             return "wrongPass";
         }
 
         model.addAttribute("employee", employee);
         position = employee.getPosition();
-        model.addAttribute("position",position);
+        model.addAttribute("position", position);
 
         return "staffAccountView";
     }
@@ -115,16 +116,16 @@ public class BankStaffControllers {
         return "depositByAdminForm";
     }
 
-    @RequestMapping("/depositNegativeValueAdmin")
-    public String depositNegativeValueAdmin(){
-        return "depositNegativeValueAdmin";
-    }
-
     @RequestMapping("/depositByAdmin")
     public String depositByAdmin(@RequestParam("accountNumber") int accountNumber,
-                                 @RequestParam("amount") double amount){
+                                 @RequestParam("amount") double amount,
+                                 Model model){
+
+        String operation = "deposit";
+        model.addAttribute("operation",operation);
+
         if(amount <= 0){
-            return "redirect:/depositNegativeValueAdmin";
+            return "errorMessagesAdmin";
         }
         employeeService.depositByAdmin(accountNumber,amount);
         return "staffAccountView";
@@ -148,11 +149,13 @@ public class BankStaffControllers {
         double newBalance = balance - amount;
         model.addAttribute("amount",amount);
         model.addAttribute("balance",balance);
+        String operation = "withdraw";
+        model.addAttribute("operation",operation);
 
             if(amount <= 0){
-                return "withdrawErrorMessagesAdmin";
+                return "errorMessagesAdmin";
             }else if(newBalance < 0){
-                return "withdrawErrorMessagesAdmin";
+                return "errorMessagesAdmin";
             }
         employeeService.withdrawByAdmin(account, newBalance);
         return "staffAccountView";
@@ -176,10 +179,14 @@ public class BankStaffControllers {
         model.addAttribute("withdrawAccountBalance",withdrawAccountBalance);
         model.addAttribute("amount",amount);
 
+        String operation = "transfer";
+        model.addAttribute("operation",operation);
+
+
             if(amount <=0){
-                return "transferErrorMessagesAdmin";
+                return "errorMessagesAdmin";
             }else if(withdrawAccountBalance < amount){
-                return "transferErrorMessagesAdmin";
+                return "errorMessagesAdmin";
             }
             employeeService.transferByAdmin(withdrawAccount,amount,depositAccountNumber);
         return "staffAccountView";
