@@ -25,7 +25,6 @@ public class BankStaffControllers {
     public String employeeCredentialsForm(@PathVariable("flag") String flag,
                                           Model model){
         model.addAttribute("flag",flag);
-        System.out.println(flag);
         return "employeeCredentialsForm";
     }
 
@@ -35,14 +34,17 @@ public class BankStaffControllers {
                                       Model model){
         model.addAttribute("login",login);
         model.addAttribute("password",password);
-        BankEmployee employee = employeeService.logInEmployee(login,password);
+        String position = (String)model.getAttribute("flag");
+        System.out.println(position);
+        BankEmployee employee = employeeService.logInEmployee(login,password,position );
+        System.out.println(employee);
 
         if(employee == null){
             return "wrongPass";
         }
-        
+
         model.addAttribute("employee", employee);
-        String position = employee.getPosition();
+        position = employee.getPosition();
         model.addAttribute("position",position);
 
         return "staffAccountView";
@@ -106,32 +108,6 @@ public class BankStaffControllers {
         return "notApprovedAccounts";
     }
     //---------------Bank--Admin------------------------------------------------------------
-
-    @RequestMapping("/adminCredentialsForm/{flag}")
-    public String AdminCredentialsForm(@PathVariable("flag") String flag,
-                                       Model model){
-        model.addAttribute("flag",flag);
-        return "adminCredentialsForm";
-    }
-
-    @RequestMapping("/adminAccountView")
-    public String AdminAccountView(@RequestParam("login") String login,
-                                   @RequestParam("password") String password,
-                                   Model model){
-        model.addAttribute("login",login);
-        model.addAttribute("password",password);
-        BankEmployee admin = employeeService.logInAdmin(login,password);
-
-
-        if(admin == null){
-            return "wrongPass";
-        }
-        String position = admin.getPosition();
-        model.addAttribute("position",position);
-
-        return "staffAccountView";
-    }
-
     //--------------------DEPOSIT--------------------------------------------------------------
 
     @RequestMapping("/depositByAdminForm")
@@ -151,7 +127,7 @@ public class BankStaffControllers {
             return "redirect:/depositNegativeValueAdmin";
         }
         employeeService.depositByAdmin(accountNumber,amount);
-        return "adminAccountView";
+        return "staffAccountView";
     }
 
     //---------------------Withdraw--------------------------------------------------------------
@@ -179,7 +155,7 @@ public class BankStaffControllers {
                 return "withdrawErrorMessagesAdmin";
             }
         employeeService.withdrawByAdmin(account, newBalance);
-        return "adminAccountView";
+        return "staffAccountView";
     }
 
     //---------------------Transfer--------------------------------------------------------------
@@ -206,7 +182,7 @@ public class BankStaffControllers {
                 return "transferErrorMessagesAdmin";
             }
             employeeService.transferByAdmin(withdrawAccount,amount,depositAccountNumber);
-        return "adminAccountView";
+        return "staffAccountView";
     }
 
 }

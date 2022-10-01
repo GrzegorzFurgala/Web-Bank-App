@@ -63,8 +63,7 @@ public class EmployeeService {
         return account;
     }
 
-    public BankEmployee logInEmployee(String login, String password) {
-        String position = "employee";
+    public BankEmployee logInEmployee(String login, String password, String position) {
         BankEmployee employee = employeeRepository.logInEmployee(login,password,position);
         return employee;
     }

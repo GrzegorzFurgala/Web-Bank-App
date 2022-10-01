@@ -61,6 +61,7 @@ public class Menu {
 
                 switch (opt){
                     case 1:
+                        /*
                         System.out.println("Enter Login");
                         login = sc.nextLine();
                         System.out.println(("Enter password"));
@@ -68,6 +69,7 @@ public class Menu {
                         BankEmployee employee = employeeService.logInEmployee(login,password);
                         employeeMenu(employee);
                         break;
+                         */
                     case 2:
                         /*
                         System.out.println("Enter Login");
