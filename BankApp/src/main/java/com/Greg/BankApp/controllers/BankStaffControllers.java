@@ -16,13 +16,16 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import java.util.List;
 
 @Controller
-@SessionAttributes({"login","password","position","employee"})
+@SessionAttributes({"login","password","position","employee","flag"})
 public class BankStaffControllers {
     @Autowired
     EmployeeService employeeService;
 
-    @RequestMapping("/employeeCredentialsForm")
-    public String employeeCredentialsForm(){
+    @RequestMapping("/employeeCredentialsForm/{flag}")
+    public String employeeCredentialsForm(@PathVariable("flag") String flag,
+                                          Model model){
+        model.addAttribute("flag",flag);
+        System.out.println(flag);
         return "employeeCredentialsForm";
     }
 
@@ -35,11 +38,9 @@ public class BankStaffControllers {
         BankEmployee employee = employeeService.logInEmployee(login,password);
 
         if(employee == null){
-            return "wrongPassEmployee";
+            return "wrongPass";
         }
-        // mozna wprowadzic tu i admin flage dzieki ktorej po zlym wprowadzeniu hasla ten sam widok "wrongPassEmployee,
-        // bedzie kierowal albo do formularza admina albo Employee, moze nawet potem do formularza klienta
-
+        
         model.addAttribute("employee", employee);
         String position = employee.getPosition();
         model.addAttribute("position",position);
@@ -106,8 +107,10 @@ public class BankStaffControllers {
     }
     //---------------Bank--Admin------------------------------------------------------------
 
-    @RequestMapping("/adminCredentialsForm")
-    public String AdminCredentialsForm(){
+    @RequestMapping("/adminCredentialsForm/{flag}")
+    public String AdminCredentialsForm(@PathVariable("flag") String flag,
+                                       Model model){
+        model.addAttribute("flag",flag);
         return "adminCredentialsForm";
     }
 
@@ -121,11 +124,10 @@ public class BankStaffControllers {
 
 
         if(admin == null){
-            return "wrongPassAdmin";
+            return "wrongPass";
         }
         String position = admin.getPosition();
         model.addAttribute("position",position);
-
 
         return "staffAccountView";
     }
