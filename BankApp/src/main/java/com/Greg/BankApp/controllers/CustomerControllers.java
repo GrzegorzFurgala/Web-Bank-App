@@ -1,5 +1,4 @@
 package com.Greg.BankApp.controllers;
-import com.Greg.BankApp.Services.AccountService;
 import com.Greg.BankApp.Services.CustomerService;
 import com.Greg.BankApp.domain.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @SessionAttributes({"cusIntersession", "accountNumber","login","password"})
 public class CustomerControllers {
-    @Autowired
-    AccountService accountService;
+
     @Autowired
     CustomerService customerService;
 

@@ -26,16 +26,23 @@ public class AccountsController {
 
         @PostMapping("/newAccounts")
         public String saveAccount(Account account, Model model){
-            accountService.createNewAccount(account);
+            //accountService.createNewAccount(account);
             Customer customer = (Customer)model.getAttribute("cusIntersession");
-            customer.addAccountToTheList(account);//<------------!!!!!!!!!!!!!!!!!!!!!sprawdzic czy to nie powduje blad pierwszego konta
+
+            Account updatedAccount = accountService.saveAccount(account);
+            updatedAccount.setOwner_id(customer.getIdnumber());
+            System.out.println("dupa +"+updatedAccount);
+
+            customer.addAccountToTheList(updatedAccount);//<------------!!!!!!!!!!!!!!!!!!!!!sprawdzic czy to nie powduje blad pierwszego konta
             customerService.saveCustomer(customer);
-            return "redirect:/bankAccountList";
+            System.out.println(customer);
+            return "redirect/bankAccountList";
         }
         @GetMapping("/bankAccountList")
         public String customerApprovedBankAccounts(Model model){
             Customer customer = (Customer)model.getAttribute("cusIntersession");
             List<Account>approvedBankAccounts = accountService.readAllAcceptedAccountsByOwnerId(customer.getIdnumber());
+            System.out.println(approvedBankAccounts);
             model.addAttribute("approvedAccounts",approvedBankAccounts);
             return "customerApprovedBankAccountList";
         }

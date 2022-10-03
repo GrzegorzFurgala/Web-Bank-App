@@ -26,7 +26,6 @@ public class AccountRepository {
 
     public List<Account> readAllAccounts(){
         List<Account> allAccounts = em.createQuery("Select a from Account a ").getResultList();
-        allAccounts.forEach(System.out::println);
         return allAccounts;
     }
 

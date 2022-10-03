@@ -83,6 +83,8 @@ public class Account {
                 ", account_holder_first_name='" + account_holder_first_name + '\'' +
                 ", account_holder_last_name='" + account_holder_last_name + '\'' +
                 ", account_balance=" + account_balance +
+                ", account_approved=" + account_approved +
+                ", owner_id='" + owner_id + '\'' +
                 '}';
     }
 }

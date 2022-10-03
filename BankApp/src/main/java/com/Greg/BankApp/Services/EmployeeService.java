@@ -24,24 +24,9 @@ public class EmployeeService {
         BankEmployee emp = employeeRepository.updateEmployee(bankEmployee);
         return emp;
     }
-    /*
-    public BankAdmin createBankAdmin(){
-        // TODO: 28/09/2022
-        return null;
-    }
-    public BankAdmin saveAdmin(BankAdmin bankAdmin){
-        BankAdmin emp = employeeRepository.updateEmployee(bankAdmin);
-        return emp;
-    }
-     */
     public void deleteEmployeeById(int idEmployee){
         employeeRepository.deleteEmployeeById(idEmployee);
     }
-    /*
-    public void deleteAdminById(int idAdmin){
-        employeeRepository.deleteAdminById(idAdmin);
-    }
-    */
 
     //----------------------Operations--on--accounts-------------------------------//
 
@@ -75,12 +60,6 @@ public class EmployeeService {
     }
 
 
-    /*
-    public BankAdmin logInAdmin(String login, String password) {
-        BankAdmin admin = employeeRepository.logInAdmin(login,password);
-        return admin;
-    }
-     */
     public void approveCustomerBankAccount(int accountNumber){
         employeeRepository.approveCustomerAccount(accountNumber);
     }

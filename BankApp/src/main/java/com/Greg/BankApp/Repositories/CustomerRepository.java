@@ -5,7 +5,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
-import java.util.List;
 
 @Repository
 public class CustomerRepository {
@@ -31,20 +30,6 @@ public class CustomerRepository {
 
     public Customer readCustomerById(String idnumber){
        return  em.find(Customer.class, idnumber);
-    }
-
-    public List<Customer> readAllCustomers(){
-
-        List<Customer> allCustomers = em.createQuery("Select s from Customer s ").getResultList();
-        allCustomers.stream().forEach(customer -> System.out.println(customer));
-        return allCustomers;
-    }
-
-    public void deleteCustomerById(String idnumber){
-        Customer cus = readCustomerById(idnumber);
-        em.getTransaction().begin();
-        em.remove(cus);
-        em.getTransaction().commit();
     }
 
     public Customer logIn(String login, String password) {
